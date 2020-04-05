@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: bud-mall-server
+  profiles:
+    active: '@profiles.active@'
+
+mybatis-plus:
+  mapper-locations: classpath:/mybatis/*.xml
