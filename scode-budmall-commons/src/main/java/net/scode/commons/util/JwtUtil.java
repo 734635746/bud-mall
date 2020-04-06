@@ -28,9 +28,7 @@ public class JwtUtil {
      * 由字符串密钥生成加密密钥
      * @return 加密密钥
      */
-    private static SecretKey generalKey() {
-
-        String stringKey = Consts.JWT_SECRET;
+    private static SecretKey generalKey(String stringKey) {
 
         // 本地的密码解码
         byte[] encodedKey = Base64.decodeBase64(stringKey);
@@ -43,27 +41,29 @@ public class JwtUtil {
     /**
      * 生成Member的JWT
      * @param claims 需要保存到jwt的业务信息
+     * @param stringKey 加密字符串
      * @return JWt
      */
-    public static String geneJsonWebToken(Map<String, Object> claims){
+    public static String geneJsonWebToken(Map<String, Object> claims,String stringKey){
 
         return Jwts.builder()
                 .setClaims(claims) //私有信息,根据特定业务
                 .setIssuedAt(new Date()) //签发时间
                 .setExpiration(new Date(System.currentTimeMillis()+EXPIRE_TIME)) //过期时间
-                .signWith(SignatureAlgorithm.HS256,generalKey())//签名算法及密钥
+                .signWith(SignatureAlgorithm.HS256,generalKey(stringKey))//签名算法及密钥
                 .compact();
     }
 
     /**
      * 校验Token,校验出错会抛出运行时异常
      * @param token jwt
+     * @param stringKey 加密字符串
      * @return Claims信息
      */
-    public static Claims checkJWT(String token){
+    public static Claims checkJWT(String token,String stringKey){
 
         return Jwts.parser()
-                .setSigningKey(generalKey())
+                .setSigningKey(generalKey(stringKey))
                 .parseClaimsJws(token)
                 .getBody();
     }

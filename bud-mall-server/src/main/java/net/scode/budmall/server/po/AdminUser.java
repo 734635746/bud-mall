@@ -19,10 +19,6 @@ import javax.validation.constraints.Pattern;
 @ApiModel(value = "表[admin_user]的实体类")
 public class AdminUser {
 
-    /**
-     * 默认头像
-     */
-    public static final String DEFAULT_AVATAR = "https://s1.ax1x.com/2020/04/06/GsokUH.png";
 
     /**
      * 自增id

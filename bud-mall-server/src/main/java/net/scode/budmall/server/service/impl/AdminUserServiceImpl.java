@@ -3,6 +3,7 @@ package net.scode.budmall.server.service.impl;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import net.scode.budmall.server.consts.AdminUserConsts;
 import net.scode.budmall.server.dao.AdminUserDao;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
@@ -50,7 +51,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao,AdminUser> im
         claims.put("dataStatus", user.getDataStatus());
 
         //生成token并返回
-        return JwtUtil.geneJsonWebToken(claims);
+        return JwtUtil.geneJsonWebToken(claims, AdminUserConsts.JWT_SECRET);
 
     }
 }

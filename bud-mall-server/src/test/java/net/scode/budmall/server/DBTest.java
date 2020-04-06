@@ -2,6 +2,7 @@ package net.scode.budmall.server;
 
 import cn.hutool.crypto.SecureUtil;
 import io.jsonwebtoken.Claims;
+import net.scode.budmall.server.consts.AdminUserConsts;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.commons.util.JwtUtil;
@@ -31,7 +32,7 @@ public class DBTest {
         adminUser.setAccount("admin")
                 .setLoginPwd(SecureUtil.md5("$ccc$357"))
                 .setRoleId(1)
-                .setAvatar(AdminUser.DEFAULT_AVATAR)
+                .setAvatar(AdminUserConsts.DEFAULT_AVATAR)
                 .setDataStatus(2);
 
         adminUserService.save(adminUser);

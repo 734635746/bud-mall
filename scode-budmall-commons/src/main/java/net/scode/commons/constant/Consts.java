@@ -157,8 +157,5 @@ public final class Consts {
      */
     public static final int ERROR_CODE = 500;
 
-    /**
-     * Jwt密钥字符串
-     */
-    public static final String JWT_SECRET = "d98c5df1-39c1-40a3-80ea-3133e269b312";
+
 }
