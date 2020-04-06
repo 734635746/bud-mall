@@ -40,7 +40,7 @@ CREATE TABLE `product_category` (
   `sort` smallint(4) NOT NULL default 0 COMMENT '排序权重',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `data_status` tinyint(2) NOT NULL default 2 COMMENT '通用状态,2正常,3删除',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品分类';
 
 /* 商品品牌表 */
@@ -59,3 +59,32 @@ CREATE TABLE `product_brand` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品品牌';
 
+/**用户信息表**/
+CREATE TABLE `user_info` (
+     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
+     `avatar` varchar(255) NOT NULL COMMENT '头像图片url地址',
+     `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '昵称',
+     `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:保密 1:男 2:女',
+     `birthday` date NOT NULL DEFAULT '1990-01-01' COMMENT '生日',
+     `phone_number` varchar(11) NOT NULL COMMENT '手机号码',
+     `mail` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱',
+     `login_pwd` varchar(64) NOT NULL COMMENT '登陆密码',
+     `data_status` tinyint(2) NOT NULL DEFAULT 2 COMMENT '通用状态,2正常,3删除,4禁用',
+     `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+     PRIMARY KEY (`id`),
+     UNIQUE KEY `phone_number` (`phone_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息';
+
+/**管理员信息表**/
+CREATE TABLE `admin_user` (
+     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
+     `account` varchar(20) NOT NULL COMMENT '账号',
+     `login_pwd` varchar(64) NOT NULL COMMENT '登陆密码',
+     `avatar` varchar(255) NOT NULL COMMENT '头像图片url地址',
+     `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '昵称',
+     `role_id` int(10) UNSIGNED NOT NULL  COMMENT '角色id',
+     `data_status` tinyint(2) NOT NULL DEFAULT 2 COMMENT '通用状态,2正常,3删除,4禁用',
+     `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+     PRIMARY KEY (`id`),
+     UNIQUE KEY `account` (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员信息';
