@@ -9,21 +9,19 @@ import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.commons.constant.Consts;
 import net.scode.commons.constant.DataStatus;
-import net.scode.commons.exception.ScodeException;
 import net.scode.commons.exception.ScodeRuntimeException;
 import net.scode.commons.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 /**
  * AdminUser对应service实现
- * 
- * @author liuyoubin 2020年04月06日 
+ *
+ * @author liuyoubin 2020年04月06日
  */
 @Service
-public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao,AdminUser> implements AdminUserService {
+public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> implements AdminUserService {
 
 
     @Override
@@ -40,7 +38,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao,AdminUser> im
         AdminUser user = baseMapper.selectOne(queryWrapper);
 
         //查询失败
-        if(user==null){
+        if (user == null) {
             throw new ScodeRuntimeException(Consts.FAILED_CODE, "登陆失败,请检查账号密码！");
         }
 
@@ -59,10 +57,23 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao,AdminUser> im
 
     @Override
     public boolean deleteById(Integer id) {
+        return updateAdminUserDataStatus(id, DataStatus.DEL) == 1;
+    }
 
-        AdminUser adminUser = new AdminUser().setId(id).setDataStatus(DataStatus.DEL.getValue());
+    @Override
+    public boolean forbidLoginById(Integer id) {
+        return updateAdminUserDataStatus(id, DataStatus.FORBID) == 1;
+    }
 
-        return baseMapper.updateById(adminUser) == 1;
-
+    /**
+     * 修改管理员的状态
+     *
+     * @param id         待修改的管理员id
+     * @param dataStatus 指定的状态
+     * @return 成功修改的数量
+     */
+    private int updateAdminUserDataStatus(Integer id, DataStatus dataStatus) {
+        AdminUser adminUser = new AdminUser().setId(id).setDataStatus(dataStatus.getValue());
+        return baseMapper.updateById(adminUser);
     }
 }

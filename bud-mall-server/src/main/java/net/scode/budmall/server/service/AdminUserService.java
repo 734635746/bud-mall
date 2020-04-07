@@ -5,13 +5,14 @@ import net.scode.budmall.server.po.AdminUser;
 
 /**
  * AdminUser对应Service
- * 
- * @author liuyoubin 2020年04月06日 
+ *
+ * @author liuyoubin 2020年04月06日
  */
 public interface AdminUserService extends IService<AdminUser> {
 
     /**
      * 管理员登陆校验
+     *
      * @param adminUser 管理员信息对象
      * @return token
      */
@@ -19,8 +20,17 @@ public interface AdminUserService extends IService<AdminUser> {
 
     /**
      * 删除管理员（将data_status设置为删除状态）
+     *
      * @param id 待删除管理员id
      * @return 是否删除成功
      */
     boolean deleteById(Integer id);
+
+    /**
+     * 禁止管理员登陆（将data_status设置为禁用状态）
+     *
+     * @param id 待禁用管理员id
+     * @return 是否禁用成功
+     */
+    boolean forbidLoginById(Integer id);
 }
