@@ -17,4 +17,10 @@ public interface AdminUserService extends IService<AdminUser> {
      */
     String login(AdminUser adminUser);
 
+    /**
+     * 删除管理员（将data_status设置为删除状态）
+     * @param id 待删除管理员id
+     * @return 是否删除成功
+     */
+    boolean deleteById(Integer id);
 }

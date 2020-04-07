@@ -46,7 +46,7 @@ public class SwaggerConfiguration {
      */
     @Bean
     public Docket apiDocket() {
-        return newGroupDocket("对外接口", "net.scode.automall.server.controller.api", "accessToken");
+        return newGroupDocket("对外接口", "net.scode.budmall.server.controller.api", "accessToken");
     }
 
     /**
@@ -56,7 +56,7 @@ public class SwaggerConfiguration {
      */
     @Bean
     public Docket admApiDocket() {
-        return newGroupDocket("管理后台接口", "net.scode.automall.server.controller.admapi", AuthConsts.AUTHORIZATION_HEADER);
+        return newGroupDocket("管理后台接口", "net.scode.budmall.server.controller.admapi", AuthConsts.AUTHORIZATION_HEADER);
     }
 
     /**
@@ -66,7 +66,7 @@ public class SwaggerConfiguration {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("汽车商城API接口RESTful APIs")
+                .title("通用商城API接口RESTful APIs")
                 .description("spring Boot 中构建RESTful API")
                 .termsOfServiceUrl("")
                 .version("1.0")

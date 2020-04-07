@@ -29,7 +29,7 @@ public class DBTest {
     public void testInsertAdminUser(){
 
         AdminUser adminUser = new AdminUser();
-        adminUser.setAccount("admin")
+        adminUser.setAccount("admin2")
                 .setLoginPwd(SecureUtil.md5("$ccc$357"))
                 .setRoleId(1)
                 .setAvatar(AdminUserConsts.DEFAULT_AVATAR)

@@ -20,4 +20,5 @@ public interface SysPermissionService extends IService<SysPermission> {
      */
     Page<SysPermission> pageSearch(String keywords, Page page);
 
+
 }

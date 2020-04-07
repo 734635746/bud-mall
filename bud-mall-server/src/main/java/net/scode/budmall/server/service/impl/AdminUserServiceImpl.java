@@ -8,6 +8,7 @@ import net.scode.budmall.server.dao.AdminUserDao;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.commons.constant.Consts;
+import net.scode.commons.constant.DataStatus;
 import net.scode.commons.exception.ScodeException;
 import net.scode.commons.exception.ScodeRuntimeException;
 import net.scode.commons.util.JwtUtil;
@@ -52,6 +53,16 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao,AdminUser> im
 
         //生成token并返回
         return JwtUtil.geneJsonWebToken(claims, AdminUserConsts.JWT_SECRET);
+
+    }
+
+
+    @Override
+    public boolean deleteById(Integer id) {
+
+        AdminUser adminUser = new AdminUser().setId(id).setDataStatus(DataStatus.DEL.getValue());
+
+        return baseMapper.updateById(adminUser) == 1;
 
     }
 }
