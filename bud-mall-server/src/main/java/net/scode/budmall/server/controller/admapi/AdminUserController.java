@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 
 /**
  * 管理员用户信息后台接口
@@ -82,6 +83,23 @@ public class AdminUserController {
         boolean isSuccess = adminUserService.forbidLoginById(id);
 
         return isSuccess ? R.ok() : R.error("【禁止管理员登陆】操作失败");
+    }
+
+    @ApiOperation(value = "支持根据名称分页查询管理员")
+    @GetMapping("/{page}/{limit}")
+    public R pageQueryAdminUsers(
+            @ApiParam(name = "page", value = "当前页码", required = true)
+            @PathVariable(value = "page") Long page,
+            @ApiParam(name = "limit", value = "每页记录数", required = true)
+            @PathVariable(value = "limit") Long limit,
+            @ApiParam(name = "nickname", value = "搜索条件:管理员名称", required = false)
+            @RequestParam(value = "nickname") String nickname) {
+
+        //分页查询
+        HashMap<String, Object> map = adminUserService.pageQueryAdminUsers(page, limit, nickname);
+
+        return R.ok(map);
+
     }
 
 }

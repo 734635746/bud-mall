@@ -3,6 +3,8 @@ package net.scode.budmall.server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.po.AdminUser;
 
+import java.util.HashMap;
+
 /**
  * AdminUser对应Service
  *
@@ -33,4 +35,14 @@ public interface AdminUserService extends IService<AdminUser> {
      * @return 是否禁用成功
      */
     boolean forbidLoginById(Integer id);
+
+    /**
+     * 分页查询管理员
+     *
+     * @param page     单前页码
+     * @param limit    每页几条数据
+     * @param nickname 搜索条件：管理员名称
+     * @return 查询结果集映射
+     */
+    HashMap<String, Object> pageQueryAdminUsers(Long page, Long limit, String nickname);
 }
