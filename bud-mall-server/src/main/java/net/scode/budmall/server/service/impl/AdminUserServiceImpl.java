@@ -4,6 +4,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import net.scode.budmall.server.consts.AdminUserConsts;
 import net.scode.budmall.server.dao.AdminUserDao;
 import net.scode.budmall.server.po.AdminUser;
@@ -13,6 +14,7 @@ import net.scode.commons.constant.Consts;
 import net.scode.commons.constant.DataStatus;
 import net.scode.commons.exception.ScodeRuntimeException;
 import net.scode.commons.util.JwtUtil;
+import net.scode.commons.util.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -93,6 +95,24 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
 
         return new AdminUserVoPageQueryResultMap(userPage);
 
+    }
+
+    @Override
+    public boolean addAdminUser(AdminUser adminUser) {
+
+        //将密码进md5加密
+        adminUser.setLoginPwd(SecureUtil.md5(adminUser.getLoginPwd()));
+        //如果没有指定头像使用默认头像
+        if (StringUtil.isBlank(adminUser.getAvatar())) {
+            adminUser.setAvatar(AdminUserConsts.DEFAULT_AVATAR);
+        }
+        //由于int在java中默认值是0,所以dataStatus为0插入数据库时data_status默认值不生效,所以进行一次判断
+        if (adminUser.getDataStatus() == 0) {
+            adminUser.setDataStatus(DataStatus.NORMAL.getValue());
+        }
+
+        //添加管理员并返回结果
+        return SqlHelper.retBool(baseMapper.insert(adminUser));
     }
 
     /**

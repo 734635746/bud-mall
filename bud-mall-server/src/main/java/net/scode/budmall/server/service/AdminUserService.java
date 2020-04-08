@@ -45,4 +45,12 @@ public interface AdminUserService extends IService<AdminUser> {
      * @return 查询结果集映射
      */
     HashMap<String, Object> pageQueryAdminUsers(Long page, Long limit, String nickname);
+
+    /**
+     * 添加管理员
+     *
+     * @param adminUser 管理员信息对象
+     * @return 是否添加成功
+     */
+    boolean addAdminUser(AdminUser adminUser);
 }

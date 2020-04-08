@@ -1,11 +1,9 @@
 package net.scode.budmall.server;
 
 import cn.hutool.crypto.SecureUtil;
-import io.jsonwebtoken.Claims;
 import net.scode.budmall.server.consts.AdminUserConsts;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
-import net.scode.commons.util.JwtUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,15 @@ public class DBTest {
     AdminUserService adminUserService;
 
     @Test
-    public void testInsertAdminUser(){
+    public void test() {
+        adminUserService.getById(2);
+        System.out.println("================");
+        adminUserService.getById(2);
+
+    }
+
+    @Test
+    public void testInsertAdminUser() {
 
         AdminUser adminUser = new AdminUser();
         adminUser.setAccount("admin2")

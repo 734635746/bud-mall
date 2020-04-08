@@ -102,4 +102,15 @@ public class AdminUserController {
 
     }
 
+    @ApiOperation(value = "添加管理员")
+    @PostMapping
+    public R addAdminUser(
+            @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
+            @RequestBody @Valid AdminUser adminUser) {
+        //新增管理员
+        boolean isSuccess = adminUserService.addAdminUser(adminUser);
+
+        return isSuccess ? R.ok() : R.error("【添加管理员】操作失败！");
+    }
+
 }
