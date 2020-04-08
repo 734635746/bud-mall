@@ -2,6 +2,7 @@ package net.scode.budmall.server.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
@@ -86,7 +87,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         //构造查询对象
         QueryWrapper<AdminUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne("data_status", DataStatus.DEL);//排除处于删除状态的管理员
-        if (nickname != null) {
+        if (StringUtils.isNotBlank(nickname)) {//搜索条件不为空或者""
             queryWrapper.eq("nickname", nickname);
         }
 
@@ -113,6 +114,19 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
 
         //添加管理员并返回结果
         return SqlHelper.retBool(baseMapper.insert(adminUser));
+    }
+
+    @Override
+    public boolean updateAdminUser(AdminUser adminUser) {
+
+        //将密码进md5加密
+        adminUser.setLoginPwd(SecureUtil.md5(adminUser.getLoginPwd()));
+        //如果没有指定头像使用默认头像
+        if (StringUtil.isBlank(adminUser.getAvatar())) {
+            adminUser.setAvatar(AdminUserConsts.DEFAULT_AVATAR);
+        }
+
+        return SqlHelper.retBool(baseMapper.updateById(adminUser));
     }
 
     /**

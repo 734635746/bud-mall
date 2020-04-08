@@ -64,7 +64,7 @@ public class WebAppExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public R handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        StringBuilder stringBuilder = new StringBuilder("参数校验失败,提示信息");
+        StringBuilder stringBuilder = new StringBuilder("参数校验失败,提示信息:");
         BindingResult bindingResult = ex.getBindingResult();
         for (ObjectError error : bindingResult.getAllErrors()) {
             stringBuilder.append(error.getDefaultMessage()).append("\n");

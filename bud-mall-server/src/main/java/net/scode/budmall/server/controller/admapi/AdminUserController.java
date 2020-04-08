@@ -8,11 +8,12 @@ import net.scode.budmall.server.consts.PermissionsEnum;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.budmall.server.service.SysRoleService;
+import net.scode.budmall.server.validGroup.UpdateValid;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
@@ -38,7 +39,7 @@ public class AdminUserController {
     @PostMapping("/login")
     public R login(
             @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
-            @RequestBody @Valid AdminUser adminUser) {
+            @RequestBody @Validated AdminUser adminUser) {
 
         //校验管理员登陆，成功则返回token
         String token = adminUserService.login(adminUser);
@@ -106,11 +107,21 @@ public class AdminUserController {
     @PostMapping
     public R addAdminUser(
             @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
-            @RequestBody @Valid AdminUser adminUser) {
+            @RequestBody @Validated AdminUser adminUser) {
         //新增管理员
         boolean isSuccess = adminUserService.addAdminUser(adminUser);
 
         return isSuccess ? R.ok() : R.error("【添加管理员】操作失败！");
     }
 
+    @ApiOperation(value = "更新管理员信息")
+    @PutMapping
+    public R updateAdminUser(
+            @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
+            @RequestBody @Validated({UpdateValid.class}) AdminUser adminUser) {
+        //修改管理员
+        boolean isSuccess = adminUserService.updateAdminUser(adminUser);
+
+        return isSuccess ? R.ok() : R.error("【修改管理员】操作失败！");
+    }
 }

@@ -53,4 +53,13 @@ public interface AdminUserService extends IService<AdminUser> {
      * @return 是否添加成功
      */
     boolean addAdminUser(AdminUser adminUser);
+
+    /**
+     * 修改管理员信息
+     *
+     * @param adminUser 管理员信息对象
+     * @return 是否修改成功
+     */
+    boolean updateAdminUser(AdminUser adminUser);
+
 }
