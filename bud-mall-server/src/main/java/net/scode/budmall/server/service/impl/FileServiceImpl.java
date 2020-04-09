@@ -1,5 +1,6 @@
 package net.scode.budmall.server.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import net.scode.budmall.server.service.FileService;
@@ -34,8 +35,10 @@ public class FileServiceImpl implements FileService {
         String suffix = filename.substring(filename.lastIndexOf('.'));
         //生成新文件名
         String newFileName = UUID.randomUUID().toString() + suffix;
+        //生成日期目录
+        String datePath = new DateTime().toString("yyyy/MM/dd");
         //生成文件保存路径
-        String newFilePath = FILE_PATH + File.separator + newFileName;
+        String newFilePath = FILE_PATH + File.separator + datePath + File.separator + newFileName;
         //文件输入输出缓冲流
         BufferedInputStream is = null;
         BufferedOutputStream os = null;
