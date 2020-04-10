@@ -4,13 +4,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import net.scode.budmall.server.po.ProductCategory;
+import net.scode.budmall.server.dto.product.ProductCategoryDto;
 import net.scode.budmall.server.service.ProductCategoryService;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,11 +29,13 @@ public class ProductCategoryController {
     @PostMapping
     public R addProductCategory(
             @ApiParam(name = "adminUser", value = "商品分类信息", required = true)
-            @RequestBody @Validated ProductCategory productCategory) {
+                    ProductCategoryDto productCategoryDto) {
 
-        boolean isSuccess = productCategoryService.addProductCategory(productCategory);
+        boolean isSuccess = productCategoryService.addProductCategory(productCategoryDto);
 
         return isSuccess ? R.ok() : R.error("【添加商品分类】操作失败");
 
     }
+
+
 }

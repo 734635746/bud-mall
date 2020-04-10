@@ -1,7 +1,9 @@
 package net.scode.budmall.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.scode.budmall.server.dto.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 
 import java.util.HashMap;
@@ -50,17 +52,17 @@ public interface AdminUserService extends IService<AdminUser> {
     /**
      * 添加管理员
      *
-     * @param adminUser 管理员信息对象
+     * @param adminUserDto 管理员信息Dto对象
      * @return 是否添加成功
      */
-    boolean addAdminUser(AdminUser adminUser);
+    boolean addAdminUser(AdminUserDto adminUserDto);
 
     /**
      * 修改管理员信息
      *
-     * @param adminUser 管理员信息对象
+     * @param adminUserUpdateDto 管理员信息对象
      * @return 是否修改成功
      */
-    boolean updateAdminUser(AdminUser adminUser);
+    boolean updateAdminUser(AdminUserUpdateDto adminUserUpdateDto);
 
 }

@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import net.scode.budmall.server.consts.AdminUserConsts;
 import net.scode.budmall.server.dao.AdminUserDao;
-import net.scode.budmall.server.dto.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.budmall.server.vo.AdminUserVo;
@@ -87,7 +89,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
 
         //构造查询对象
         QueryWrapper<AdminUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.ne("data_status", DataStatus.DEL);//排除处于删除状态的管理员
+        queryWrapper.ne("data_status", DataStatus.DEL.getValue());//排除处于删除状态的管理员
         if (StringUtils.isNotBlank(nickname)) {//搜索条件不为空或者""
             queryWrapper.eq("nickname", nickname);
         }
@@ -100,7 +102,10 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
     }
 
     @Override
-    public boolean addAdminUser(AdminUser adminUser) {
+    public boolean addAdminUser(AdminUserDto adminUserDto) {
+
+        AdminUser adminUser = new AdminUser();
+        BeanUtils.copyProperties(adminUserDto, adminUser);
 
         //将密码进md5加密
         adminUser.setLoginPwd(SecureUtil.md5(adminUser.getLoginPwd()));
@@ -118,7 +123,10 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
     }
 
     @Override
-    public boolean updateAdminUser(AdminUser adminUser) {
+    public boolean updateAdminUser(AdminUserUpdateDto adminUserUpdateDto) {
+
+        AdminUser adminUser = new AdminUser();
+        BeanUtils.copyProperties(adminUserUpdateDto, adminUser);
 
         //将密码进md5加密
         adminUser.setLoginPwd(SecureUtil.md5(adminUser.getLoginPwd()));
@@ -126,6 +134,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         if (StringUtil.isBlank(adminUser.getAvatar())) {
             adminUser.setAvatar(AdminUserConsts.DEFAULT_AVATAR);
         }
+
 
         return SqlHelper.retBool(baseMapper.updateById(adminUser));
     }

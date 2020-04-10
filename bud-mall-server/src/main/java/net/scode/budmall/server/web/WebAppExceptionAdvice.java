@@ -5,6 +5,7 @@ import net.scode.commons.core.R;
 import net.scode.commons.exception.ScodeRuntimeException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -44,9 +45,6 @@ public class WebAppExceptionAdvice {
 
     /**
      * 自定义定义基础业务服务的异常
-     *
-     * @param ex
-     * @return
      */
     @ExceptionHandler(ScodeRuntimeException.class)
     @ResponseBody
@@ -57,9 +55,21 @@ public class WebAppExceptionAdvice {
 
     /**
      * 使用@Valid 注解时校验数据，数据不合法时会抛出此异常
-     *
-     * @param ex
-     * @return
+     */
+    @ExceptionHandler(BindException.class)
+    @ResponseBody
+    public R handleBindingException(BindException ex) {
+        StringBuilder stringBuilder = new StringBuilder("参数校验失败,提示信息:");
+        BindingResult bindingResult = ex.getBindingResult();
+        for (ObjectError error : bindingResult.getAllErrors()) {
+            stringBuilder.append(error.getDefaultMessage()).append("\n");
+        }
+        log.warn("BindException:{}", stringBuilder.toString());
+        return R.error(HttpStatus.BAD_REQUEST.value(), stringBuilder.toString());
+    }
+
+    /**
+     * 使用@Valid + @ResponseBody注解时校验数据，数据不合法时会抛出此异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
@@ -75,9 +85,6 @@ public class WebAppExceptionAdvice {
 
     /**
      * ServletRequestBindingException
-     *
-     * @param ex
-     * @return
      */
     @ExceptionHandler(ServletRequestBindingException.class)
     @ResponseBody
@@ -88,10 +95,6 @@ public class WebAppExceptionAdvice {
 
     /**
      * 未找到请求路径
-     *
-     * @param req
-     * @param ex
-     * @return
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
@@ -103,9 +106,6 @@ public class WebAppExceptionAdvice {
 
     /**
      * 违反数据库约束异常
-     *
-     * @param ex
-     * @return
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
@@ -116,9 +116,6 @@ public class WebAppExceptionAdvice {
 
     /**
      * SQL异常
-     *
-     * @param ex
-     * @return
      */
     @ExceptionHandler(SQLException.class)
     @ResponseBody
@@ -129,9 +126,6 @@ public class WebAppExceptionAdvice {
 
     /**
      * Insert或Update数据时违反了完整性，例如违反了惟一性限制
-     *
-     * @param ex
-     * @return
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseBody
@@ -142,9 +136,6 @@ public class WebAppExceptionAdvice {
 
     /**
      * 非法参数异常
-     *
-     * @param ex
-     * @return
      */
     @ExceptionHandler(IllegalStateException.class)
     @ResponseBody

@@ -4,12 +4,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import net.scode.budmall.server.consts.PermissionsEnum;
-import net.scode.budmall.server.dto.AdminUserLoginDto;
-import net.scode.budmall.server.po.AdminUser;
+import net.scode.budmall.server.dto.adminUser.AdminUserDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.budmall.server.service.SysRoleService;
-import net.scode.budmall.server.validGroup.UpdateValid;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +39,7 @@ public class AdminUserController {
     @PostMapping("/login")
     public R login(
             @ApiParam(name = "adminUser", value = "管理员信息", required = true)
-            @RequestBody @Validated AdminUserLoginDto adminUserLoginDto) {
+            @Validated AdminUserLoginDto adminUserLoginDto) {
 
         //校验管理员登陆，成功则返回token
         String token = adminUserService.login(adminUserLoginDto);
@@ -55,13 +54,7 @@ public class AdminUserController {
             @ApiParam(name = "id", value = "管理员id", required = true)
             @PathVariable(value = "id") @NotNull(message = "id不能为空") Integer id) {
 
-        //1. 校验当前管理员是否具有删除管理员的权限
-        boolean isHas = sysRoleService.checkPermission(PermissionsEnum.ADMIN_DELETE);
-        if (!isHas) {
-            return R.error("权限不足,操作失败！");
-        }
-
-        //2. 删除管理员
+        //删除管理员
         boolean isSuccess = adminUserService.deleteById(id);
 
         return isSuccess ? R.ok() : R.error("【删除管理员】操作失败");
@@ -75,13 +68,7 @@ public class AdminUserController {
             @PathVariable(value = "id") @NotNull(message = "id不能为空") Integer id) {
 
         //禁止管理员登陆实际上就是将管理员的状态设置成禁用状态
-        //1.检验当前管理员是否具有禁止登陆的权限
-        boolean isHas = sysRoleService.checkPermission(PermissionsEnum.ADMIN_FORBID);
-        if (!isHas) {
-            return R.error("权限不足,操作失败！");
-        }
-
-        //2.将指定管理员的状态设置成禁用状态
+        //将指定管理员的状态设置成禁用状态
         boolean isSuccess = adminUserService.forbidLoginById(id);
 
         return isSuccess ? R.ok() : R.error("【禁止管理员登陆】操作失败");
@@ -108,9 +95,9 @@ public class AdminUserController {
     @PostMapping
     public R addAdminUser(
             @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
-            @RequestBody @Validated AdminUser adminUser) {
+            @Validated AdminUserDto adminUserDto) {
         //新增管理员
-        boolean isSuccess = adminUserService.addAdminUser(adminUser);
+        boolean isSuccess = adminUserService.addAdminUser(adminUserDto);
 
         return isSuccess ? R.ok() : R.error("【添加管理员】操作失败！");
     }
@@ -119,9 +106,9 @@ public class AdminUserController {
     @PutMapping
     public R updateAdminUser(
             @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
-            @RequestBody @Validated({UpdateValid.class}) AdminUser adminUser) {
+            @RequestBody @Validated AdminUserUpdateDto adminUserUpdateDto) {
         //修改管理员
-        boolean isSuccess = adminUserService.updateAdminUser(adminUser);
+        boolean isSuccess = adminUserService.updateAdminUser(adminUserUpdateDto);
 
         return isSuccess ? R.ok() : R.error("【修改管理员】操作失败！");
     }

@@ -5,10 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import net.scode.budmall.server.validGroup.UpdateValid;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 
 /**
  * 表[admin_user]对应实体类
@@ -25,8 +21,6 @@ public class AdminUser {
     /**
      * 自增id
      */
-    //更新时触发校验,id不能为默认值0(最小为1)
-    @Min(value = 1, groups = {UpdateValid.class}, message = "Id不能为空！")
     @ApiModelProperty(value = "自增id", dataType = "int")
     private int id;
 
@@ -34,14 +28,12 @@ public class AdminUser {
      * 账号
      */
     @ApiModelProperty(value = "账号", dataType = "String")
-    @Pattern(regexp = "^[A-Za-z0-9]{4,20}$", message = "账号只能由字母、数字构成,最少4位最高20位！")
     private String account;
 
     /**
      * 登陆密码
      */
     @ApiModelProperty(value = "登陆密码", dataType = "String")
-    @Pattern(regexp = "^[A-Za-z0-9$@#%^&]{4,20}$", message = "密码只能由字母、数字、$、@、#、%、^、&构成,最少4位最高20位！")
     private String loginPwd;
 
     /**

@@ -1,12 +1,13 @@
 package net.scode.budmall.server.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import net.scode.budmall.server.dao.ProductCategoryDao;
+import net.scode.budmall.server.dto.product.ProductCategoryDto;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.service.ProductCategoryService;
 import net.scode.commons.constant.DataStatus;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,12 +19,13 @@ import org.springframework.stereotype.Service;
 public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, ProductCategory> implements ProductCategoryService {
 
     @Override
-    public boolean addProductCategory(ProductCategory productCategory) {
+    public boolean addProductCategory(ProductCategoryDto productCategoryDto) {
 
-        if (productCategory.getDataStatus() == 0) {
-            productCategory.setDataStatus(DataStatus.NORMAL.getValue());
-        }
+        ProductCategory productCategory = new ProductCategory();
+        BeanUtils.copyProperties(productCategoryDto, productCategory);
 
+        productCategory.setDataStatus(DataStatus.NORMAL.getValue());
+        System.out.println(productCategory);
         /**
          * category_id的设置规则
          *
@@ -38,10 +40,7 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
          *
          */
         if (productCategory.getParentId() == 0) {//一级分类
-            QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("parent_id", 0);
-            queryWrapper.orderByDesc("category_id");
-            ProductCategory maxIdCategory = baseMapper.selectOne(queryWrapper);
+            ProductCategory maxIdCategory = baseMapper.selectMaxIdCategoryByParentId(0);
             //存在最大分类id
             if (maxIdCategory != null) {
                 productCategory.setCategoryId(maxIdCategory.getCategoryId() + 1);
@@ -50,10 +49,7 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
             }
         } else {
             //根据parent_id查最大的子分类id
-            QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("parent_id", productCategory.getParentId());
-            queryWrapper.orderByDesc("category_id");
-            ProductCategory maxIdCategory = baseMapper.selectOne(queryWrapper);
+            ProductCategory maxIdCategory = baseMapper.selectMaxIdCategoryByParentId(productCategory.getParentId());
             //存在最大的子分类id
             if (maxIdCategory != null) {
                 productCategory.setCategoryId(maxIdCategory.getCategoryId() + 1);

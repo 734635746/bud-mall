@@ -3,4 +3,12 @@
 
 <mapper namespace="net.scode.budmall.server.dao.ProductCategoryDao">
 
+    <select id="selectMaxIdCategoryByParentId" parameterType="int"
+            resultType="net.scode.budmall.server.po.ProductCategory">
+        SELECT parent_id, category_id
+        FROM product_category
+        WHERE parent_id = #{parent_id}
+        ORDER BY category_id DESC
+        LIMIT 0,1
+    </select>
 </mapper>
