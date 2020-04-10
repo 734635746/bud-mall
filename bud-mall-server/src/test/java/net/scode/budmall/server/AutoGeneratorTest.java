@@ -1,6 +1,5 @@
 package net.scode.budmall.server;
 
-import cn.hutool.crypto.SecureUtil;
 import net.scode.commons.db.generator.AutoGenerator;
 import net.scode.commons.db.generator.GeneratorConfig;
 import org.junit.Test;
@@ -44,6 +43,7 @@ public class AutoGeneratorTest {
         //auto.generate(config, "product_brand", "ProductBrand");
         //auto.generate(config, "user_info", "UserInfo");
         //auto.generate(config, "admin_user", "AdminUser");
+        auto.generate(config, "product_info", "ProductInfo");
     }
 
 

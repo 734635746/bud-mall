@@ -1,6 +1,7 @@
 package net.scode.budmall.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import net.scode.budmall.server.dto.AdminUserLoginDto;
 import net.scode.budmall.server.po.AdminUser;
 
 import java.util.HashMap;
@@ -15,10 +16,10 @@ public interface AdminUserService extends IService<AdminUser> {
     /**
      * 管理员登陆校验
      *
-     * @param adminUser 管理员信息对象
+     * @param adminUserLoginDto 管理员登陆Dto
      * @return token
      */
-    String login(AdminUser adminUser);
+    String login(AdminUserLoginDto adminUserLoginDto);
 
     /**
      * 删除管理员（将data_status设置为删除状态）

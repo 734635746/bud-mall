@@ -7,8 +7,8 @@ import lombok.Data;
 
 /**
  * 表[product_category]对应实体类
- * 
- * @author liuyoubin 2020年04月06日 
+ *
+ * @author liuyoubin 2020年04月06日
  */
 @Data
 @TableName(value = "product_category")

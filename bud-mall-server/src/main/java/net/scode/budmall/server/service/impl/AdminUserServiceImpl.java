@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import net.scode.budmall.server.consts.AdminUserConsts;
 import net.scode.budmall.server.dao.AdminUserDao;
+import net.scode.budmall.server.dto.AdminUserLoginDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.budmall.server.vo.AdminUserVo;
@@ -33,15 +34,15 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
 
 
     @Override
-    public String login(AdminUser adminUser) {
+    public String login(AdminUserLoginDto adminUserLoginDto) {
 
         //构造查询对象
         QueryWrapper<AdminUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("account", adminUser.getAccount());
-        System.out.println(adminUser.getAccount());
-        queryWrapper.eq("login_pwd", SecureUtil.md5(adminUser.getLoginPwd()));
-        System.out.println(adminUser.getLoginPwd());
-        System.out.println(SecureUtil.md5(adminUser.getLoginPwd()));
+        queryWrapper.eq("account", adminUserLoginDto.getAccount());
+        System.out.println(adminUserLoginDto.getAccount());
+        queryWrapper.eq("login_pwd", SecureUtil.md5(adminUserLoginDto.getLoginPwd()));
+        System.out.println(adminUserLoginDto.getLoginPwd());
+        System.out.println(SecureUtil.md5(adminUserLoginDto.getLoginPwd()));
         //查询对象
         AdminUser user = baseMapper.selectOne(queryWrapper);
 

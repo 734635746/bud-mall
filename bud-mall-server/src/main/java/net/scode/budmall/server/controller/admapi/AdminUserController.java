@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.consts.PermissionsEnum;
+import net.scode.budmall.server.dto.AdminUserLoginDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.budmall.server.service.SysRoleService;
@@ -38,11 +39,11 @@ public class AdminUserController {
     @ApiOperation(value = "管理员登陆接口", notes = "登陆成功则携带token返回")
     @PostMapping("/login")
     public R login(
-            @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
-            @RequestBody @Validated AdminUser adminUser) {
+            @ApiParam(name = "adminUser", value = "管理员信息", required = true)
+            @RequestBody @Validated AdminUserLoginDto adminUserLoginDto) {
 
         //校验管理员登陆，成功则返回token
-        String token = adminUserService.login(adminUser);
+        String token = adminUserService.login(adminUserLoginDto);
 
         return R.ok().put("token", token);
 

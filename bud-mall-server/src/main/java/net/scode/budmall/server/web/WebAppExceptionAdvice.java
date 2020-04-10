@@ -52,7 +52,7 @@ public class WebAppExceptionAdvice {
     @ResponseBody
     public R handlerBaseException(ScodeRuntimeException ex) {
         log.error("AidingRuntimeException:{}", ex.getMessage());
-        return R.error(ex.getCode(), "服务异常,请联系管理员");
+        return R.error(ex.getCode(), ex.getMessage());
     }
 
     /**

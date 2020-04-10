@@ -28,6 +28,7 @@ public class AdminController {
     @Autowired
     private SysPermissionService sysPermissionService;
 
+
     /**
      * 测试接口
      *
