@@ -29,7 +29,7 @@ public class WebConfigurerAdapter extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //管理后台拦截
-        registry.addInterceptor(adminServiceInterceptor()).addPathPatterns("/admapi/**");
+        registry.addInterceptor(adminServiceInterceptor()).addPathPatterns("/admapi/**").excludePathPatterns("/admapi/user/login");
     }
 
     /**

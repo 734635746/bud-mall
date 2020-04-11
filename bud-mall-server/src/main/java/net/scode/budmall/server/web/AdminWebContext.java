@@ -53,6 +53,16 @@ public class AdminWebContext {
         return p.getToken();
     }
 
+    public static int getAdminUserId() {
+        AdminWebContext.PublicParameter p = publicParameterHolder.get();
+        return p.getAdminUserId();
+    }
+
+    public static String getAdminUserAccount() {
+        AdminWebContext.PublicParameter p = publicParameterHolder.get();
+        return p.getAdminAccount();
+    }
+
     /**
      * 公共参数列表
      */
@@ -69,5 +79,8 @@ public class AdminWebContext {
          */
         private String ip;
 
+        private int adminUserId;
+
+        private String adminAccount;
     }
 }

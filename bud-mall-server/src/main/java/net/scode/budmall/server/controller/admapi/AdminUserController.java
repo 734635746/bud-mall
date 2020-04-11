@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.dto.adminUser.AdminUserDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
+import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.budmall.server.service.SysRoleService;
+import net.scode.budmall.server.web.AdminWebContext;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -48,6 +50,24 @@ public class AdminUserController {
 
     }
 
+    @ApiOperation(value = "获取管理员信息", notes = "返回管理员信息")
+    @GetMapping("/info")
+    public R info() {
+        int userId = AdminWebContext.getAdminUserId();
+        AdminUser adminUser = adminUserService.getById(userId);
+        return R.data(adminUser);
+    }
+
+    @ApiOperation(value = "根据id获取管理员信息")
+    @GetMapping("/{id}")
+    public R get(
+            @ApiParam(name = "id", value = "管理员id", required = true)
+            @PathVariable(value = "id") @NotNull(message = "id不能为空") Integer id) {
+
+        AdminUser adminUser = adminUserService.getById(id);
+        return R.data(adminUser);
+    }
+
     @ApiOperation(value = "根据Id删除管理员")
     @DeleteMapping("/{id}")
     public R deleteAdminUser(
@@ -82,12 +102,12 @@ public class AdminUserController {
             @ApiParam(name = "limit", value = "每页记录数", required = true)
             @PathVariable(value = "limit") Long limit,
             @ApiParam(name = "nickname", value = "搜索条件:管理员名称", required = false)
-            @RequestParam(value = "nickname") String nickname) {
+            @RequestParam(value = "nickname", required = false) String nickname) {
 
         //分页查询
         HashMap<String, Object> map = adminUserService.pageQueryAdminUsers(page, limit, nickname);
 
-        return R.ok(map);
+        return R.data(map);
 
     }
 
