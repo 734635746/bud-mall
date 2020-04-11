@@ -1,5 +1,6 @@
 package net.scode.budmall.server.po;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +23,7 @@ public class AdminUser {
      * 自增id
      */
     @ApiModelProperty(value = "自增id", dataType = "int")
+    @TableId
     private int id;
 
     /**

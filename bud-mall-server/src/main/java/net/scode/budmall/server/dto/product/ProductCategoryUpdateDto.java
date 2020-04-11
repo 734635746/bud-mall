@@ -7,19 +7,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * 商品分类Dto
+ * 商品分类修改信息Dto
  *
  * @author liuyoubin
- * @since 2020/4/10 - 18:10
+ * @since 2020/4/10 - 21:20
  */
 @Data
-public class ProductCategoryDto {
+public class ProductCategoryUpdateDto {
 
     /**
-     * 上级分类ID，一级为0
+     * 分类id
      */
-    @ApiModelProperty(value = "上级分类ID，一级为0", dataType = "int", required = true)
-    private int parentId;
+    @ApiModelProperty(value = "分类id", dataType = "int", required = true)
+    private int categoryId;
 
     /**
      * 分类名称
@@ -41,6 +41,4 @@ public class ProductCategoryDto {
      */
     @ApiModelProperty(value = "分类图标", dataType = "String")
     private String icon;
-
-
 }

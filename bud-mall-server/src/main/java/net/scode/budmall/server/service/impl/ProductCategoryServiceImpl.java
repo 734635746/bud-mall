@@ -1,9 +1,12 @@
 package net.scode.budmall.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import net.scode.budmall.server.consts.ProductConsts;
 import net.scode.budmall.server.dao.ProductCategoryDao;
 import net.scode.budmall.server.dto.product.ProductCategoryDto;
+import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.service.ProductCategoryService;
 import net.scode.commons.constant.DataStatus;
@@ -18,11 +21,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, ProductCategory> implements ProductCategoryService {
 
+    public static void main(String[] args) {
+        System.out.println(StringUtils.isBlank(""));
+    }
+
     @Override
     public boolean addProductCategory(ProductCategoryDto productCategoryDto) {
 
         ProductCategory productCategory = new ProductCategory();
         BeanUtils.copyProperties(productCategoryDto, productCategory);
+
+        //设置默认图标
+        if (StringUtils.isBlank(productCategoryDto.getIcon())) {
+            productCategory.setIcon(ProductConsts.DEFAULT_CATEGORY_ICNO);
+        }
 
         productCategory.setDataStatus(DataStatus.NORMAL.getValue());
         System.out.println(productCategory);
@@ -59,6 +71,25 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
 
         }
 
-        return SqlHelper.retBool(baseMapper.insert(productCategory));
+        return save(productCategory);
+    }
+
+
+    @Override
+    public boolean updateProductCategory(ProductCategoryUpdateDto productCategoryUpdateDto) {
+        //设置默认图标
+        if (StringUtils.isBlank(productCategoryUpdateDto.getIcon())) {
+            productCategoryUpdateDto.setIcon(ProductConsts.DEFAULT_CATEGORY_ICNO);
+        }
+
+        //指定更新字段
+        UpdateWrapper<ProductCategory> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("category_name", productCategoryUpdateDto.getCategoryName());
+        updateWrapper.set("sort", productCategoryUpdateDto.getSort());
+        updateWrapper.set("icon", productCategoryUpdateDto.getIcon());
+        //指定category_id
+        updateWrapper.eq("category_id", productCategoryUpdateDto.getCategoryId());
+
+        return update(updateWrapper);
     }
 }

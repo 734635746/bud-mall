@@ -1,5 +1,6 @@
 package net.scode.budmall.server.po;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,6 +20,7 @@ public class ProductCategory {
      * 分类id
      */
     @ApiModelProperty(value = "分类id", dataType = "int")
+    @TableId
     private int categoryId;
 
     /**

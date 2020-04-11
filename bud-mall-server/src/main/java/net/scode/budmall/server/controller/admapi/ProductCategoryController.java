@@ -5,14 +5,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.dto.product.ProductCategoryDto;
+import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
 import net.scode.budmall.server.service.ProductCategoryService;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
+ * 后台商品分类管理接口
+ *
  * @author liuyoubin
  * @since 2020/4/10 - 15:38
  */
@@ -29,7 +31,7 @@ public class ProductCategoryController {
     @PostMapping
     public R addProductCategory(
             @ApiParam(name = "adminUser", value = "商品分类信息", required = true)
-                    ProductCategoryDto productCategoryDto) {
+            @Validated ProductCategoryDto productCategoryDto) {
 
         boolean isSuccess = productCategoryService.addProductCategory(productCategoryDto);
 
@@ -37,5 +39,14 @@ public class ProductCategoryController {
 
     }
 
+    @ApiOperation(value = "商品分类修改")
+    @PutMapping
+    public R updateProductCategory(
+            @ApiParam(name = "adminUser", value = "商品分类修改信息", required = true)
+            @RequestBody @Validated ProductCategoryUpdateDto productCategoryUpdateDto) {
 
+        boolean isSuccess = productCategoryService.updateProductCategory(productCategoryUpdateDto);
+
+        return isSuccess ? R.ok() : R.error("【修改商品分类】操作失败");
+    }
 }
