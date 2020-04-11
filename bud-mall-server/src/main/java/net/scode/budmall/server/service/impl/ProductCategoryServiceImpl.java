@@ -41,35 +41,25 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
         /**
          * category_id的设置规则
          *
-         * parent_id==0
-         *       category_id = 最大一级分类id+1
-         *       如果是第一条一级分类记录则设置成1000
-         *
-         * parent_id!=0
          *      每次新增的时候，根据parent_id查最大的子分类id，
          *      有最大的子分类id，那么这时候的category_id=parent_id下最大的子分类id+1，
-         *      没有的话，category_id=parent_id*1000
+         *      没有的话，
+         *          category_id=parent_id*1000 (如果是一级分类就设置为1000)
          *
          */
-        if (productCategory.getParentId() == 0) {//一级分类
-            ProductCategory maxIdCategory = baseMapper.selectMaxIdCategoryByParentId(0);
-            //存在最大分类id
-            if (maxIdCategory != null) {
-                productCategory.setCategoryId(maxIdCategory.getCategoryId() + 1);
-            } else {//不存在最大分类id
+        //根据parent_id查最大的子分类id
+        ProductCategory maxIdCategory = baseMapper.selectMaxIdCategoryByParentId(productCategory.getParentId());
+        //存在最大的子分类id
+        if (maxIdCategory != null) {
+            productCategory.setCategoryId(maxIdCategory.getCategoryId() + 1);
+        } else {//不存在最大的子分类id
+            if (productCategory.getParentId() == 0) {//一级分类
                 productCategory.setCategoryId(1000);
-            }
-        } else {
-            //根据parent_id查最大的子分类id
-            ProductCategory maxIdCategory = baseMapper.selectMaxIdCategoryByParentId(productCategory.getParentId());
-            //存在最大的子分类id
-            if (maxIdCategory != null) {
-                productCategory.setCategoryId(maxIdCategory.getCategoryId() + 1);
-            } else {//不存在最大的子分类id
+            } else {
                 productCategory.setCategoryId(productCategory.getParentId() * 1000);
             }
-
         }
+
 
         return save(productCategory);
     }

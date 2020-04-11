@@ -41,17 +41,18 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         //构造查询对象
         QueryWrapper<AdminUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("account", adminUserLoginDto.getAccount());
-        System.out.println(adminUserLoginDto.getAccount());
-        queryWrapper.eq("login_pwd", SecureUtil.md5(adminUserLoginDto.getLoginPwd()));
-        System.out.println(adminUserLoginDto.getLoginPwd());
-        System.out.println(SecureUtil.md5(adminUserLoginDto.getLoginPwd()));
         //查询对象
         AdminUser user = baseMapper.selectOne(queryWrapper);
 
         //查询失败
-        if (user == null) {
-            throw new ScodeRuntimeException(Consts.FAILED_CODE, "登陆失败,请检查账号密码！");
+        if (user == null || user.getDataStatus() == DataStatus.DEL.getValue()) {
+            throw new ScodeRuntimeException(Consts.FAILED_CODE, "账号不存在,请检查账号！");
+        } else if (user.getDataStatus() == DataStatus.FORBID.getValue()) {
+            throw new ScodeRuntimeException(Consts.FAILED_CODE, "账号处于禁用状态,请联系管理员！");
+        } else if (!SecureUtil.md5(adminUserLoginDto.getLoginPwd()).equals(user.getLoginPwd())) {
+            throw new ScodeRuntimeException(Consts.FAILED_CODE, "密码错误,请重新输入密码！");
         }
+
 
         //构造需要保存到token的信息
         HashMap<String, Object> claims = new HashMap<>();

@@ -76,7 +76,7 @@ public class AdminServiceInterceptor implements HandlerInterceptor {
     private void setResponse(ServletResponse response, R result) {
         try {
             OutputStream os = response.getOutputStream();
-            String jsonStr = JSONUtil.toJsonStr(response);
+            String jsonStr = JSONUtil.toJsonStr(result);
             os.write(jsonStr.getBytes(StandardCharsets.UTF_8));
             response.setContentType(JSON_CONTENT_TYPE);
         } catch (Exception ex) {

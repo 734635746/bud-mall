@@ -157,7 +157,9 @@ public final class Consts {
      */
     public static final int ERROR_CODE = 500;
 
-    // 未登录
+    /**
+     * 未登录
+     */
     public static final int NOT_LOGIN_CODE = 1000;
 
 }
