@@ -13,6 +13,7 @@ import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
+import net.scode.budmall.server.util.PageQueryResultMapUtil;
 import net.scode.budmall.server.vo.AdminUserVo;
 import net.scode.commons.constant.Consts;
 import net.scode.commons.constant.DataStatus;
@@ -22,9 +23,7 @@ import net.scode.commons.util.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * AdminUser对应service实现
@@ -87,18 +86,22 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
 
         //构造分页查询对象
         Page<AdminUser> userPage = new Page<>(page, limit);
-
-        //构造查询对象
+        //构造查询参数对象
         QueryWrapper<AdminUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.ne("data_status", DataStatus.DEL.getValue());//排除处于删除状态的管理员
-        if (StringUtils.isNotBlank(nickname)) {//搜索条件不为空或者""
+        //排除处于删除状态的管理员
+        queryWrapper.ne("data_status", DataStatus.DEL.getValue());
+        //如果搜索条件存在
+        if (StringUtils.isNotBlank(nickname)) {
             queryWrapper.eq("nickname", nickname);
         }
+        //排序
+        queryWrapper.orderByDesc("sort");
 
         //查询
         baseMapper.selectPage(userPage, queryWrapper);
 
-        return new AdminUserVoPageQueryResultMap(userPage);
+        //对查询结果集进行封装并返回
+        return PageQueryResultMapUtil.getResultMap(userPage, AdminUserVo.class);
 
     }
 
@@ -152,34 +155,4 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         return baseMapper.updateById(adminUser);
     }
 
-    /**
-     * 管理员信息Vo对象分页查询结果映射内部类
-     */
-    class AdminUserVoPageQueryResultMap extends HashMap<String, Object> {
-
-        AdminUserVoPageQueryResultMap(Page<AdminUser> userPage) {
-
-            put("records", getAdminUserVoList(userPage.getRecords()));
-            put("total", userPage.getTotal());
-            put("size", userPage.getSize());
-            put("pages", userPage.getPages());
-            put("current", userPage.getCurrent());
-
-        }
-
-        /**
-         * 将AdminUser集合转成AdminUserVo集合
-         */
-        private List<AdminUserVo> getAdminUserVoList(List<AdminUser> adminUserList) {
-            ArrayList<AdminUserVo> adminUserVoList = new ArrayList<>();
-
-            for (AdminUser adminUser : adminUserList) {
-                AdminUserVo adminUserVo = new AdminUserVo();
-                BeanUtils.copyProperties(adminUser, adminUserVo);
-                adminUserVoList.add(adminUserVo);
-            }
-            return adminUserVoList;
-
-        }
-    }
 }

@@ -9,7 +9,6 @@ import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
-import net.scode.budmall.server.service.SysRoleService;
 import net.scode.budmall.server.web.AdminWebContext;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,12 @@ public class AdminUserController {
     @Autowired
     private AdminUserService adminUserService;
 
-    @Autowired
-    private SysRoleService sysRoleService;
 
     @ApiOperation(value = "管理员登陆接口", notes = "登陆成功则携带token返回")
     @PostMapping("/login")
     public R login(
             @ApiParam(name = "adminUser", value = "管理员信息", required = true)
-            @Validated AdminUserLoginDto adminUserLoginDto) {
+            @RequestBody @Validated AdminUserLoginDto adminUserLoginDto) {
 
         //校验管理员登陆，成功则返回token
         String token = adminUserService.login(adminUserLoginDto);
@@ -115,7 +112,7 @@ public class AdminUserController {
     @PostMapping
     public R addAdminUser(
             @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
-            @Validated AdminUserDto adminUserDto) {
+            @RequestBody @Validated AdminUserDto adminUserDto) {
         //新增管理员
         boolean isSuccess = adminUserService.addAdminUser(adminUserDto);
 
