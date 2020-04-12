@@ -2,6 +2,7 @@ package net.scode.budmall.server.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -94,8 +95,6 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         if (StringUtils.isNotBlank(nickname)) {
             queryWrapper.eq("nickname", nickname);
         }
-        //排序
-        queryWrapper.orderByDesc("sort");
 
         //查询
         baseMapper.selectPage(userPage, queryWrapper);
@@ -129,18 +128,15 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
     @Override
     public boolean updateAdminUser(AdminUserUpdateDto adminUserUpdateDto) {
 
-        AdminUser adminUser = new AdminUser();
-        BeanUtils.copyProperties(adminUserUpdateDto, adminUser);
+        //构造更新对象
+        UpdateWrapper<AdminUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", adminUserUpdateDto.getId());
+        updateWrapper.set("avatar", adminUserUpdateDto.getAvatar());
+        updateWrapper.set("nickname", adminUserUpdateDto.getNickname());
+        updateWrapper.set("role_id", adminUserUpdateDto.getRoleId());
+        updateWrapper.set(" data_status", adminUserUpdateDto.getDataStatus());
 
-        //将密码进md5加密
-        adminUser.setLoginPwd(SecureUtil.md5(adminUser.getLoginPwd()));
-        //如果没有指定头像使用默认头像
-        if (StringUtil.isBlank(adminUser.getAvatar())) {
-            adminUser.setAvatar(AdminUserConsts.DEFAULT_AVATAR);
-        }
-
-
-        return SqlHelper.retBool(baseMapper.updateById(adminUser));
+        return update(updateWrapper);
     }
 
     /**

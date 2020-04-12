@@ -49,4 +49,10 @@ public class ProductCategoryController {
 
         return isSuccess ? R.ok() : R.error("【修改商品分类】操作失败");
     }
+
+    @ApiOperation(value = "商品分类列表")
+    @GetMapping
+    public R productInfoList() {
+        return null;
+    }
 }
