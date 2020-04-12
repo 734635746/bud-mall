@@ -11,6 +11,7 @@ import net.scode.budmall.server.consts.AdminUserConsts;
 import net.scode.budmall.server.dao.AdminUserDao;
 import net.scode.budmall.server.dto.adminUser.AdminUserDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserPwdDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
@@ -44,7 +45,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         //查询对象
         AdminUser user = baseMapper.selectOne(queryWrapper);
 
-        //查询失败
+        //验证账号状态
         if (user == null || user.getDataStatus() == DataStatus.DEL.getValue()) {
             throw new ScodeRuntimeException(Consts.FAILED_CODE, "账号不存在,请检查账号！");
         } else if (user.getDataStatus() == DataStatus.FORBID.getValue()) {
@@ -52,7 +53,6 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         } else if (!SecureUtil.md5(adminUserLoginDto.getLoginPwd()).equals(user.getLoginPwd())) {
             throw new ScodeRuntimeException(Consts.FAILED_CODE, "密码错误,请重新输入密码！");
         }
-
 
         //构造需要保存到token的信息
         HashMap<String, Object> claims = new HashMap<>();
@@ -84,7 +84,6 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         if (page <= 0 || limit <= 0) {
             throw new ScodeRuntimeException("分页参数不合法！");
         }
-
         //构造分页查询对象
         Page<AdminUser> userPage = new Page<>(page, limit);
         //构造查询参数对象
@@ -131,12 +130,51 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
         //构造更新对象
         UpdateWrapper<AdminUser> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id", adminUserUpdateDto.getId());
-        updateWrapper.set("avatar", adminUserUpdateDto.getAvatar());
+        if (StringUtils.isBlank(adminUserUpdateDto.getAvatar())) {
+            updateWrapper.set("avatar", AdminUserConsts.DEFAULT_AVATAR);
+        } else {
+            updateWrapper.set("avatar", adminUserUpdateDto.getAvatar());
+        }
         updateWrapper.set("nickname", adminUserUpdateDto.getNickname());
         updateWrapper.set("role_id", adminUserUpdateDto.getRoleId());
-        updateWrapper.set(" data_status", adminUserUpdateDto.getDataStatus());
+        updateWrapper.set("data_status", adminUserUpdateDto.getDataStatus());
 
         return update(updateWrapper);
+    }
+
+    @Override
+    public boolean updatePassword(Integer id, AdminUserPwdDto adminUserPwdDto) {
+        //构造查询对象
+        QueryWrapper<AdminUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        //查询对象
+        AdminUser user = baseMapper.selectOne(queryWrapper);
+
+        //验证账号状态
+        if (user == null || user.getDataStatus() == DataStatus.DEL.getValue()) {
+            throw new ScodeRuntimeException(Consts.FAILED_CODE, "账号不存在,请检查账号！");
+        }
+
+        //修改密码
+        UpdateWrapper<AdminUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("login_pwd", SecureUtil.md5(adminUserPwdDto.getNewPassword()));
+
+        return update(updateWrapper);
+    }
+
+    @Override
+    public AdminUserVo getAdminUserVoById(Integer id) {
+
+        AdminUser adminUser = baseMapper.selectById(id);
+        //验证账号状态
+        if (adminUser == null || adminUser.getDataStatus() == DataStatus.DEL.getValue()) {
+            throw new ScodeRuntimeException(Consts.FAILED_CODE, "账号不存在,请检查账号！");
+        }
+        AdminUserVo adminUserVo = new AdminUserVo();
+        BeanUtils.copyProperties(adminUser, adminUserVo);
+
+        return adminUserVo;
     }
 
     /**

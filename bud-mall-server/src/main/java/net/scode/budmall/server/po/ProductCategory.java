@@ -22,7 +22,6 @@ public class ProductCategory {
     @ApiModelProperty(value = "分类id", dataType = "int")
     @TableId
     private int categoryId;
-
     /**
      * 上级分类ID，一级为0
      */

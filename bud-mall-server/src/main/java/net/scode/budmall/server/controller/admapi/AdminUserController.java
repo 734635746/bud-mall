@@ -6,9 +6,11 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.dto.adminUser.AdminUserDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserPwdDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
+import net.scode.budmall.server.vo.AdminUserVo;
 import net.scode.budmall.server.web.AdminWebContext;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +63,9 @@ public class AdminUserController {
             @ApiParam(name = "id", value = "管理员id", required = true)
             @PathVariable(value = "id") @NotNull(message = "id不能为空") Integer id) {
 
-        AdminUser adminUser = adminUserService.getById(id);
-        return R.data(adminUser);
+
+        AdminUserVo adminUserVo = adminUserService.getAdminUserVoById(id);
+        return R.data(adminUserVo);
     }
 
     @ApiOperation(value = "根据Id删除管理员")
@@ -128,5 +131,18 @@ public class AdminUserController {
         boolean isSuccess = adminUserService.updateAdminUser(adminUserUpdateDto);
 
         return isSuccess ? R.ok() : R.error("【修改管理员】操作失败！");
+    }
+
+    @ApiOperation(value = "修改管理员密码")
+    @PutMapping("/password/{id}")
+    public R updatePassword(
+            @ApiParam(name = "id", value = "管理员id", required = true)
+            @PathVariable(value = "id") Integer id,
+            @ApiParam(name = "adminUser", value = "管理员密码信息", required = true)
+            @RequestBody AdminUserPwdDto adminUserPwdDto) {
+
+        boolean isSuccess = adminUserService.updatePassword(id, adminUserPwdDto);
+
+        return isSuccess ? R.ok() : R.error("【修改管理员密码】操作失败！");
     }
 }

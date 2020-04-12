@@ -3,8 +3,10 @@ package net.scode.budmall.server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.dto.adminUser.AdminUserDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
+import net.scode.budmall.server.dto.adminUser.AdminUserPwdDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
+import net.scode.budmall.server.vo.AdminUserVo;
 
 import java.util.HashMap;
 
@@ -65,4 +67,21 @@ public interface AdminUserService extends IService<AdminUser> {
      */
     boolean updateAdminUser(AdminUserUpdateDto adminUserUpdateDto);
 
+
+    /**
+     * 修改管理员密码
+     *
+     * @param id              管理员id
+     * @param adminUserPwdDto 管理员密码对象
+     * @return 是否修改成功
+     */
+    boolean updatePassword(Integer id, AdminUserPwdDto adminUserPwdDto);
+
+    /**
+     * 根据id获取管理员信息
+     *
+     * @param id 管理员id
+     * @return 管理员信息Vo对象
+     */
+    AdminUserVo getAdminUserVoById(Integer id);
 }
