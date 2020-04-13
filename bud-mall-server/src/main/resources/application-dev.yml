@@ -6,7 +6,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/bud_mall?useUnicode=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password: root
     druid:
       initial-size: 2
       min-idle: 2
@@ -39,4 +39,9 @@ swagger:
     username: budmall
     password: scode#666!
 
+bud-mall:
+  # 默认上传根路径
+  upload-base-path: /data/website/bud_mall/upload/
+  # 图片访问根路径
+  upload-base-url: http://localhost:${server.port}/upload/
 

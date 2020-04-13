@@ -25,4 +25,9 @@ public class AppConfig {
     @Value("${swagger.host}")
     private String swaggerHost;
 
+    @Value("${bud-mall.upload-base-path}")
+    private String uploadBasePath;
+
+    @Value("${bud-mall.upload-base-url}")
+    private String uploadBaseUrl;
 }
