@@ -11,4 +11,21 @@
         ORDER BY category_id DESC
         LIMIT 0,1
     </select>
+
+    <select id="listProductCategoryByParentId" parameterType="int" resultMap="nestedCategory">
+        SELECT category_id,
+               parent_id,
+               category_name,
+               product_num,
+               icon
+        FROM product_category
+        WHERE parent_id = #{parentId}
+          AND data_status = 2
+        ORDER BY sort DESC
+    </select>
+    <resultMap id="nestedCategory" type="net.scode.budmall.server.vo.ProductCategoryVo">
+        <collection property="children" ofType="net.scode.budmall.server.vo.ProductCategoryVo"
+                    select="listProductCategoryByParentId" column="category_id"/>
+    </resultMap>
+
 </mapper>

@@ -7,10 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.dto.product.ProductCategoryDto;
 import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
 import net.scode.budmall.server.service.ProductCategoryService;
+import net.scode.budmall.server.vo.ProductCategoryVo;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 后台商品分类管理接口
@@ -50,11 +53,12 @@ public class ProductCategoryController {
         return isSuccess ? R.ok() : R.error("【修改商品分类】操作失败");
     }
 
-    @ApiOperation(value = "商品分类列表")
-    @GetMapping
+    @ApiOperation(value = "获取所有商品分类列表")
+    @GetMapping("/list")
     public R productInfoList() {
 
+        List<ProductCategoryVo> list = productCategoryService.listAllProductCategory();
 
-        return null;
+        return R.ok().put("data", list);
     }
 }

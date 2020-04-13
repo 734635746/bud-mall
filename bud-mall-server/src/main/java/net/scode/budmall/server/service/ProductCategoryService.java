@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.dto.product.ProductCategoryDto;
 import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
+import net.scode.budmall.server.vo.ProductCategoryVo;
+
+import java.util.List;
 
 /**
  * ProductCategory对应Service
@@ -27,4 +30,12 @@ public interface ProductCategoryService extends IService<ProductCategory> {
      * @return 是否添加成功
      */
     boolean updateProductCategory(ProductCategoryUpdateDto productCategoryUpdateDto);
+
+    /**
+     * 获取所有商品分类嵌套列表
+     *
+     * @return 商品分类嵌套列表
+     */
+    List<ProductCategoryVo> listAllProductCategory();
+
 }

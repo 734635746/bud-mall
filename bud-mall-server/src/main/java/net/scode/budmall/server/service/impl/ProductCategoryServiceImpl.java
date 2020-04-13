@@ -9,9 +9,12 @@ import net.scode.budmall.server.dto.product.ProductCategoryDto;
 import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.service.ProductCategoryService;
+import net.scode.budmall.server.vo.ProductCategoryVo;
 import net.scode.commons.constant.DataStatus;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * ProductCategory对应service实现
@@ -81,5 +84,14 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
         updateWrapper.eq("category_id", productCategoryUpdateDto.getCategoryId());
 
         return update(updateWrapper);
+    }
+
+
+    @Override
+    public List<ProductCategoryVo> listAllProductCategory() {
+
+        //获取parent_id为0的所有商品分类列表
+        return baseMapper.listProductCategoryByParentId(0);
+
     }
 }
