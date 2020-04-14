@@ -34,6 +34,41 @@ CREATE TABLE `sys_role`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='角色';
 
+/**管理员信息表**/
+CREATE TABLE `admin_user`
+(
+    `id`          int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `account`     varchar(20)      NOT NULL COMMENT '账号',
+    `login_pwd`   varchar(64)      NOT NULL COMMENT '登陆密码',
+    `avatar`      varchar(255)     NOT NULL COMMENT '头像图片url地址',
+    `nickname`    varchar(20)      NOT NULL DEFAULT '' COMMENT '昵称',
+    `role_id`     int(10) UNSIGNED NOT NULL COMMENT '角色id',
+    `data_status` tinyint(2)       NOT NULL DEFAULT 2 COMMENT '通用状态,2正常,3删除,4禁用',
+    `create_time` timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `account` (`account`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='管理员信息';
+
+/**用户信息表**/
+CREATE TABLE `user_info`
+(
+    `id`           int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `mobile`        varchar(11)     NOT NULL COMMENT '手机号',
+    `email`         varchar(50)     NOT NULL DEFAULT '' COMMENT '邮箱',
+    `password`      varchar(64)     NOT NULL COMMENT '密码',
+    `avatar`       varchar(255)     NOT NULL COMMENT '头像图片url地址',
+    `nickname`     varchar(20)      NOT NULL DEFAULT '' COMMENT '昵称',
+    `gender`       tinyint(1)       NOT NULL DEFAULT '0' COMMENT '0:保密 1:男 2:女',
+    `birthday`     date             NOT NULL DEFAULT '1990-01-01' COMMENT '生日',
+    `data_status`  tinyint(2)       NOT NULL DEFAULT 2 COMMENT '通用状态,2正常,3删除,4禁用',
+    `create_time`  timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `mobile` (`mobile`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='用户信息';
+
+
 /* 商品分类表 */
 CREATE TABLE `product_category`
 (
@@ -67,53 +102,56 @@ CREATE TABLE `product_brand`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='商品品牌';
 
+/**店铺，初期可能只有一个自营店铺*/
+CREATE TABLE `shop`
+(
+    `id`           int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `shop_name`  varchar(100)       NOT NULL DEFAULT '' COMMENT '店铺名称',
+    `product_num`   int(10)         NOT NULL DEFAULT 0 COMMENT '店铺商品数量',
+    `create_time`  timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `data_status`  tinyint(2)       NOT NULL default 2 COMMENT '通用状态,2正常,3删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COMMENT ='店铺详情';
+
+CREATE TABLE IF NOT EXISTS `service` (
+    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '服务id',
+    `name` varchar(64) NOT NULL COMMENT '服务名称',
+    `description` text NOT NULL COMMENT '服务描述',
+    `logo` varchar(255) NOT NULL COMMENT 'logo',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '服务表';
+
 /**商品信息表**/
 CREATE TABLE `product_info`
 (
     `id`           int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `category_id`  int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品分类id',
-    `band_id`      int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品品牌id',
-    `product_name` varchar(32)      NOT NULL COMMENT '商品名称',
-    `product_img`  varchar(255)     NOT NULL DEFAULT '' COMMENT '商品图片',
-    `intro`        varchar(500)     NOT NULL DEFAULT '' COMMENT '商品介绍',
+    `brand_id`      int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品品牌id',
+    `shop_id`      int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '店铺id',
+    `product_name` varchar(500)      NOT NULL COMMENT '商品名称',
+    `product_img`  varchar(2000)     NOT NULL DEFAULT '' COMMENT '商品图片,多个图片逗号隔开，第一个作为封面图',
     `price`        decimal(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '商品价格',
+    `origin_price` decimal(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '原价',
+    `stock`         int(10)         NOT NULL DEFAULT 0 COMMENT '库存数量',
+    `sales`         int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '销售数量',
     `sort`         smallint(4)      NOT NULL default 0 COMMENT '排序权重',
+    `intro`        text     NOT NULL DEFAULT '' COMMENT '商品介绍',
+    `services`      varchar(200) NOT NULL DEFAULT '' COMMENT '商品服务，逗号隔开',
     `create_time`  timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `data_status`  tinyint(2)       NOT NULL default 2 COMMENT '通用状态,2正常,3删除',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8 COMMENT ='商品详情';
-
-/**用户信息表**/
-CREATE TABLE `user_info`
-(
-    `id`           int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    `avatar`       varchar(255)     NOT NULL COMMENT '头像图片url地址',
-    `nickname`     varchar(20)      NOT NULL DEFAULT '' COMMENT '昵称',
-    `gender`       tinyint(1)       NOT NULL DEFAULT '0' COMMENT '0:保密 1:男 2:女',
-    `birthday`     date             NOT NULL DEFAULT '1990-01-01' COMMENT '生日',
-    `phone_number` varchar(11)      NOT NULL COMMENT '手机号码',
-    `mail`         varchar(50)      NOT NULL DEFAULT '' COMMENT '邮箱',
-    `login_pwd`    varchar(64)      NOT NULL COMMENT '登陆密码',
-    `data_status`  tinyint(2)       NOT NULL DEFAULT 2 COMMENT '通用状态,2正常,3删除,4禁用',
-    `create_time`  timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `phone_number` (`phone_number`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8 COMMENT ='用户信息';
+    KEY `idx_category_id` (`category_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COMMENT ='商品详情';
 
-/**管理员信息表**/
-CREATE TABLE `admin_user`
-(
-    `id`          int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    `account`     varchar(20)      NOT NULL COMMENT '账号',
-    `login_pwd`   varchar(64)      NOT NULL COMMENT '登陆密码',
-    `avatar`      varchar(255)     NOT NULL COMMENT '头像图片url地址',
-    `nickname`    varchar(20)      NOT NULL DEFAULT '' COMMENT '昵称',
-    `role_id`     int(10) UNSIGNED NOT NULL COMMENT '角色id',
-    `data_status` tinyint(2)       NOT NULL DEFAULT 2 COMMENT '通用状态,2正常,3删除,4禁用',
-    `create_time` timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `account` (`account`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8 COMMENT ='管理员信息';
+CREATE TABLE IF NOT EXISTS `product_sku` (
+   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+   `product_id` int(11) NOT NULL DEFAULT 0 COMMENT '商品编号',
+   `sku_name` varchar(500) NOT NULL DEFAULT '' COMMENT 'SKU名称',
+   `price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '价格',
+   `origin_price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '原价',
+   `stock` int(11) NOT NULL DEFAULT 0 COMMENT '库存',
+   `picture` varchar(255) NOT NULL DEFAULT '0' COMMENT '如果是第一个sku编码, 可以加图片',
+   PRIMARY KEY (`id`),
+   KEY `idx_product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品sku表';
+
