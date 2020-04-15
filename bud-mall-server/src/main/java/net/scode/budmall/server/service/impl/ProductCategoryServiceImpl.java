@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.scode.budmall.server.consts.ProductConsts;
 import net.scode.budmall.server.dao.ProductCategoryDao;
-import net.scode.budmall.server.dto.product.ProductCategoryDto;
-import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
+import net.scode.budmall.server.dto.productCategory.ProductCategoryDto;
+import net.scode.budmall.server.dto.productCategory.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.service.ProductCategoryService;
 import net.scode.budmall.server.vo.ProductCategoryVo;
@@ -29,7 +29,7 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
     }
 
     @Override
-    public boolean addProductCategory(ProductCategoryDto productCategoryDto) {
+    public boolean saveProductCategory(ProductCategoryDto productCategoryDto) {
 
         ProductCategory productCategory = new ProductCategory();
         BeanUtils.copyProperties(productCategoryDto, productCategory);

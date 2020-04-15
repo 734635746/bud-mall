@@ -117,7 +117,7 @@ public class AdminUserController {
             @ApiParam(name = "adminUser", value = "管理员信息对象", required = true)
             @RequestBody @Validated AdminUserDto adminUserDto) {
         //新增管理员
-        boolean isSuccess = adminUserService.addAdminUser(adminUserDto);
+        boolean isSuccess = adminUserService.saveAdminUser(adminUserDto);
 
         return isSuccess ? R.ok() : R.error("【添加管理员】操作失败！");
     }

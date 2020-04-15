@@ -7,16 +7,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.scode.budmall.server.consts.ProductConsts;
 import net.scode.budmall.server.dao.ProductInfoDao;
-import net.scode.budmall.server.dto.product.ProductInfoDto;
+import net.scode.budmall.server.dto.productInfo.ProductInfoDto;
 import net.scode.budmall.server.po.ProductInfo;
 import net.scode.budmall.server.query.ProductInfoQuery;
 import net.scode.budmall.server.service.ProductInfoService;
+import net.scode.budmall.server.service.ProductSkuService;
 import net.scode.budmall.server.util.PageQueryResultMapUtil;
 import net.scode.budmall.server.vo.ProductInfoVo;
 import net.scode.commons.constant.DataStatus;
 import net.scode.commons.exception.ScodeRuntimeException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
@@ -28,20 +31,29 @@ import java.util.HashMap;
 @Service
 public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductInfo> implements ProductInfoService {
 
+    @Autowired
+    private ProductSkuService productSkuService;
+
     @Override
-    public boolean addProductInfo(ProductInfoDto productInfoDto) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean saveProductInfo(ProductInfoDto productInfoDto) {
 
         ProductInfo productInfo = new ProductInfo();
         BeanUtils.copyProperties(productInfoDto, productInfo);
 
         //设置data_status
         productInfo.setDataStatus(DataStatus.NORMAL.getValue());
-        //设置默认图片
+        //设置默认商品图片
         if (StringUtils.isBlank(productInfoDto.getProductImg())) {
             productInfo.setProductImg(ProductConsts.DEFAULT_PRODUCT_IMG);
         }
 
-        return save(productInfo);
+        //保存商品详情数据
+        baseMapper.insertProductInfo(productInfo);
+        //保存Sku数据
+        productSkuService.saveSkuList(productInfo.getId(), productInfoDto.getSkuList());
+
+        return true;
     }
 
     @Override

@@ -37,13 +37,17 @@ public class AutoGeneratorTest {
         config.setAuthor("liuyoubin");
 
         AutoGenerator auto = new AutoGenerator(dataSource);
-        // auto.generate(config, "sys_permission", "SysPermission");
-        // auto.generate(config, "sys_role", "SysRole");
+        //auto.generate(config, "sys_permission", "SysPermission");
+        //auto.generate(config, "sys_role", "SysRole");
         //auto.generate(config, "product_category", "ProductCategory");
         //auto.generate(config, "product_brand", "ProductBrand");
         //auto.generate(config, "user_info", "UserInfo");
         //auto.generate(config, "admin_user", "AdminUser");
-        auto.generate(config, "product_info", "ProductInfo");
+        //auto.generate(config, "product_info", "ProductInfo");
+        //auto.generate(config, "product_service", "ProductService");
+        //auto.generate(config, "product_sku", "ProductSku");
+        //auto.generate(config, "shop", "Shop");
+
     }
 
 

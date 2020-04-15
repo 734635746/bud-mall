@@ -7,8 +7,8 @@ import lombok.Data;
 
 /**
  * 表[user_info]对应实体类
- * 
- * @author liuyoubin 2020年04月06日 
+ *
+ * @author liuyoubin 2020年04月06日
  */
 @Data
 @TableName(value = "user_info")
@@ -49,19 +49,19 @@ public class UserInfo {
      * 手机号码
      */
     @ApiModelProperty(value = "手机号码", dataType = "String")
-    private String phoneNumber;
+    private String mobile;
 
     /**
      * 邮箱
      */
     @ApiModelProperty(value = "邮箱", dataType = "String")
-    private String mail;
+    private String email;
 
     /**
      * 登陆密码
      */
     @ApiModelProperty(value = "登陆密码", dataType = "String")
-    private String loginPwd;
+    private String password;
 
     /**
      * 通用状态,2正常,3删除,4禁用

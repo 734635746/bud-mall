@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import net.scode.budmall.server.dto.product.ProductInfoDto;
+import net.scode.budmall.server.dto.productInfo.ProductInfoDto;
 import net.scode.budmall.server.query.ProductInfoQuery;
 import net.scode.budmall.server.service.ProductInfoService;
 import net.scode.budmall.server.vo.ProductInfoVo;
@@ -36,7 +36,7 @@ public class ProductInfoController {
             @ApiParam(name = "productInfoDto", value = "商品详情信息", required = true)
             @RequestBody @Validated ProductInfoDto productInfoDto) {
 
-        boolean isSuccess = productInfoService.addProductInfo(productInfoDto);
+        boolean isSuccess = productInfoService.saveProductInfo(productInfoDto);
 
         return isSuccess ? R.ok() : R.error("【添加商品详情信息】操作失败");
 

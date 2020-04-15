@@ -34,7 +34,13 @@ public class ProductInfo {
      * 品牌id
      */
     @ApiModelProperty(value = "品牌id", dataType = "int")
-    private int bandId;
+    private int brandId;
+
+    /**
+     * 店铺id
+     */
+    @ApiModelProperty(value = "店铺id", dataType = "int")
+    private int shopId;
 
     /**
      * 商品名称
@@ -49,22 +55,46 @@ public class ProductInfo {
     private String productImg;
 
     /**
-     * 商品介绍
-     */
-    @ApiModelProperty(value = "商品介绍", dataType = "String")
-    private String intro;
-
-    /**
      * 商品价格
      */
     @ApiModelProperty(value = "商品价格", dataType = "BigDecimal")
     private BigDecimal price;
 
     /**
+     * 原价
+     */
+    @ApiModelProperty(value = "原价", dataType = "BigDecimal")
+    private BigDecimal originPrice;
+
+    /**
+     * 库存数量
+     */
+    @ApiModelProperty(value = "库存数量", dataType = "int")
+    private int stock;
+
+    /**
+     * 销售数量
+     */
+    @ApiModelProperty(value = "销售数量", dataType = "int")
+    private int sales;
+
+    /**
      * 排序权重
      */
     @ApiModelProperty(value = "排序权重", dataType = "int")
     private int sort;
+
+    /**
+     * 商品介绍
+     */
+    @ApiModelProperty(value = "商品介绍", dataType = "String")
+    private String intro;
+
+    /**
+     * 商品服务，逗号隔开
+     */
+    @ApiModelProperty(value = "商品服务", dataType = "String")
+    private String services;
 
     /**
      * 创建时间

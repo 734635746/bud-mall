@@ -1,8 +1,8 @@
 package net.scode.budmall.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.scode.budmall.server.dto.product.ProductCategoryDto;
-import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
+import net.scode.budmall.server.dto.productCategory.ProductCategoryDto;
+import net.scode.budmall.server.dto.productCategory.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.vo.ProductCategoryVo;
 
@@ -21,7 +21,7 @@ public interface ProductCategoryService extends IService<ProductCategory> {
      * @param productCategoryDto 商品分类信息Dto
      * @return 是否添加成功
      */
-    boolean addProductCategory(ProductCategoryDto productCategoryDto);
+    boolean saveProductCategory(ProductCategoryDto productCategoryDto);
 
     /**
      * 修改商品分类信息

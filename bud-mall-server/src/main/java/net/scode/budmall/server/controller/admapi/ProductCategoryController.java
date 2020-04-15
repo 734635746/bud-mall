@@ -4,8 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import net.scode.budmall.server.dto.product.ProductCategoryDto;
-import net.scode.budmall.server.dto.product.ProductCategoryUpdateDto;
+import net.scode.budmall.server.dto.productCategory.ProductCategoryDto;
+import net.scode.budmall.server.dto.productCategory.ProductCategoryUpdateDto;
 import net.scode.budmall.server.service.ProductCategoryService;
 import net.scode.budmall.server.vo.ProductCategoryVo;
 import net.scode.commons.core.R;
@@ -36,7 +36,7 @@ public class ProductCategoryController {
             @ApiParam(name = "adminUser", value = "商品分类信息", required = true)
             @Validated ProductCategoryDto productCategoryDto) {
 
-        boolean isSuccess = productCategoryService.addProductCategory(productCategoryDto);
+        boolean isSuccess = productCategoryService.saveProductCategory(productCategoryDto);
 
         return isSuccess ? R.ok() : R.error("【添加商品分类】操作失败");
 

@@ -30,7 +30,7 @@ public class ProductInfoVo {
      * 品牌id
      */
     @ApiModelProperty(value = "品牌id", dataType = "int")
-    private int bandId;
+    private int brandId;
 
     /**
      * 商品名称

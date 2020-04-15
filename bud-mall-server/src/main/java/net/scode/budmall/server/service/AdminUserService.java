@@ -57,7 +57,7 @@ public interface AdminUserService extends IService<AdminUser> {
      * @param adminUserDto 管理员信息Dto对象
      * @return 是否添加成功
      */
-    boolean addAdminUser(AdminUserDto adminUserDto);
+    boolean saveAdminUser(AdminUserDto adminUserDto);
 
     /**
      * 修改管理员信息

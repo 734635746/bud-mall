@@ -3,4 +3,17 @@
 
 <mapper namespace="net.scode.budmall.server.dao.ProductInfoDao">
 
+    <insert id="insertProductInfo" parameterType="net.scode.budmall.server.po.ProductInfo">
+        INSERT INTO `product_info`
+        (category_id, brand_id, shop_id, product_name, product_img, price, origin_price, stock,
+        sales, sort, intro, services, data_status)
+        VALUES (#{categoryId}, #{brandId}, #{shopId}, #{productName}, #{productImg}, #{price}, #{originPrice},
+        #{stock},
+        #{sales}, #{sort}, #{intro}, #{services}, #{dataStatus})
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER"
+                   statementType="PREPARED">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
 </mapper>

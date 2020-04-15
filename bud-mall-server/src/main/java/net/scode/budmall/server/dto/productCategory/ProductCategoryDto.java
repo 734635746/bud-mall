@@ -1,4 +1,4 @@
-package net.scode.budmall.server.dto.product;
+package net.scode.budmall.server.dto.productCategory;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -7,19 +7,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * 商品分类修改信息Dto
+ * 商品分类Dto
  *
  * @author liuyoubin
- * @since 2020/4/10 - 21:20
+ * @since 2020/4/10 - 18:10
  */
 @Data
-public class ProductCategoryUpdateDto {
+public class ProductCategoryDto {
 
     /**
-     * 分类id
+     * 上级分类ID，一级为0
      */
-    @ApiModelProperty(value = "分类id", dataType = "int", required = true)
-    private int categoryId;
+    @ApiModelProperty(value = "上级分类ID，一级为0", dataType = "int", required = true)
+    private int parentId;
 
     /**
      * 分类名称
@@ -41,4 +41,6 @@ public class ProductCategoryUpdateDto {
      */
     @ApiModelProperty(value = "分类图标", dataType = "String")
     private String icon;
+
+
 }

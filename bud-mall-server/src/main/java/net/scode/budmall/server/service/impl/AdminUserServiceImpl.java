@@ -104,7 +104,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
     }
 
     @Override
-    public boolean addAdminUser(AdminUserDto adminUserDto) {
+    public boolean saveAdminUser(AdminUserDto adminUserDto) {
 
         AdminUser adminUser = new AdminUser();
         BeanUtils.copyProperties(adminUserDto, adminUser);
