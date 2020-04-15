@@ -17,13 +17,15 @@
                parent_id,
                category_name,
                product_num,
-               icon
+               icon,
+               sort
         FROM product_category
         WHERE parent_id = #{parentId}
           AND data_status = 2
         ORDER BY sort DESC
     </select>
     <resultMap id="nestedCategory" type="net.scode.budmall.server.vo.ProductCategoryVo">
+        <id column="category_id" property="categoryId"/>
         <collection property="children" ofType="net.scode.budmall.server.vo.ProductCategoryVo"
                     select="listProductCategoryByParentId" column="category_id"/>
     </resultMap>

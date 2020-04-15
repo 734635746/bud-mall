@@ -91,7 +91,7 @@ public class ProductInfoController {
 
         ProductInfoVo productInfoVo = productInfoService.getProductInfoById(id);
 
-        return R.ok().put("data", productInfoVo);
+        return R.data(productInfoVo);
     }
 
 }
