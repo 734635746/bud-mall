@@ -34,7 +34,7 @@ public class ProductCategoryController {
     @PostMapping
     public R addProductCategory(
             @ApiParam(name = "adminUser", value = "商品分类信息", required = true)
-            @Validated ProductCategoryDto productCategoryDto) {
+            @RequestBody @Validated ProductCategoryDto productCategoryDto) {
 
         boolean isSuccess = productCategoryService.saveProductCategory(productCategoryDto);
 
@@ -59,6 +59,6 @@ public class ProductCategoryController {
 
         List<ProductCategoryVo> list = productCategoryService.listAllProductCategory();
 
-        return R.ok().put("data", list);
+        return R.data(list);
     }
 }

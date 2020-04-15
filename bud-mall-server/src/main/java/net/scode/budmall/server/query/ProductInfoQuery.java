@@ -16,8 +16,5 @@ public class ProductInfoQuery {
      */
     private String productName;
 
-    /**
-     * 商品介绍
-     */
-    private String intro;
+
 }

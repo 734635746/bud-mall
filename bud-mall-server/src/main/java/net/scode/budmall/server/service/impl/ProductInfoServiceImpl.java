@@ -34,6 +34,9 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
     @Autowired
     private ProductSkuService productSkuService;
 
+    @Autowired
+    private PageQueryResultMapUtil pageQueryResultMapUtil;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveProductInfo(ProductInfoDto productInfoDto) {
@@ -96,24 +99,19 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
         Page<ProductInfo> productInfoPage = new Page<>(page, limit);
         //获取查询参数
         String productName = productInfoQuery.getProductName();
-        String intro = productInfoQuery.getIntro();
         //构造查询参数对象
         QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(productName)) {
             queryWrapper.like("product_name", productName);
         }
-        if (StringUtils.isNotBlank(intro)) {
-            queryWrapper.like("intro", intro);
-        }
         //排除处于删除状态的商品
         queryWrapper.ne("data_status", DataStatus.DEL.getValue());
         //排序
         queryWrapper.orderByDesc("sort");
-
         //查询
         baseMapper.selectPage(productInfoPage, queryWrapper);
 
-        return PageQueryResultMapUtil.getResultMap(productInfoPage, ProductInfoVo.class);
+        return pageQueryResultMapUtil.getProductInfoListResultMap(productInfoPage);
     }
 
 
