@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 
 /**
  * 后台文件管理接口
@@ -38,8 +39,9 @@ public class FileController {
 
         //保存文件并返回文件的路径
         String fileUrl = fileService.saveFile(file);
-
-        return R.ok().put("url", fileUrl);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("url", fileUrl);
+        return R.data(map);
     }
 
 }

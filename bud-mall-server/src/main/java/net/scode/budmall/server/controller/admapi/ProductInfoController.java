@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.dto.productInfo.ProductInfoDto;
 import net.scode.budmall.server.query.ProductInfoQuery;
 import net.scode.budmall.server.service.ProductInfoService;
-import net.scode.budmall.server.vo.ProductInfoVo;
+import net.scode.budmall.server.vo.productInfo.ProductInfoVo;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

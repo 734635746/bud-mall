@@ -13,7 +13,7 @@ import net.scode.budmall.server.query.ProductInfoQuery;
 import net.scode.budmall.server.service.ProductInfoService;
 import net.scode.budmall.server.service.ProductSkuService;
 import net.scode.budmall.server.util.PageQueryResultMapUtil;
-import net.scode.budmall.server.vo.ProductInfoVo;
+import net.scode.budmall.server.vo.productInfo.ProductInfoVo;
 import net.scode.commons.constant.DataStatus;
 import net.scode.commons.exception.ScodeRuntimeException;
 import org.springframework.beans.BeanUtils;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.dto.productInfo.ProductInfoDto;
 import net.scode.budmall.server.po.ProductInfo;
 import net.scode.budmall.server.query.ProductInfoQuery;
-import net.scode.budmall.server.vo.ProductInfoVo;
+import net.scode.budmall.server.vo.productInfo.ProductInfoVo;
 
 import java.util.HashMap;
 

@@ -3,8 +3,8 @@ package net.scode.budmall.server.controller.admapi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import net.scode.budmall.server.po.ProductService;
-import net.scode.budmall.server.service.ProductServiceService;
+import net.scode.budmall.server.service.ProductBrandService;
+import net.scode.budmall.server.vo.productBrand.ProductBrandOptionVo;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,24 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 后台商品服务管理接口
+ * 后台商品品牌管理接口
  *
  * @author liuyoubin
- * @since 2020/4/15 - 20:01
+ * @since 2020/4/16 - 0:22
  */
 @Slf4j
-@Api(tags = {"商品服务管理接口"})
+@Api(tags = {"商品品牌管理接口"})
 @RestController
-@RequestMapping("/admapi/product/service")
-public class ProductServiceController {
+@RequestMapping("/admapi/product/brand")
+public class ProductBrandController {
 
     @Autowired
-    private ProductServiceService productServiceService;
+    private ProductBrandService productBrandService;
 
-    @ApiOperation(value = "获取商品服务列表")
+    @ApiOperation(value = "查询品牌列表")
     @GetMapping("/list")
     public R list() {
-        List<ProductService> list = productServiceService.list();
+        List<ProductBrandOptionVo> list = productBrandService.listProductBrandOption();
         return R.data(list);
     }
 
