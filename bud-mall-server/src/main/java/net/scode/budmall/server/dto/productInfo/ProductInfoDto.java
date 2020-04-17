@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import net.scode.budmall.server.dto.productSku.ProductSkuDto;
 
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class ProductInfoDto {
      * 商品名称
      */
     @ApiModelProperty(value = "商品名称", dataType = "String", required = true)
+    @NotBlank(message = "商品名称不能为空")
     private String productName;
 
     /**
@@ -84,7 +86,7 @@ public class ProductInfoDto {
     private String intro;
 
     /**
-     * 商品服务，逗号隔开
+     * 商品服务id，逗号隔开
      */
     @ApiModelProperty(value = "商品服务", dataType = "String")
     private String services;

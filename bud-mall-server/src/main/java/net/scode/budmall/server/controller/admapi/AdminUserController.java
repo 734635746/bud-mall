@@ -10,7 +10,7 @@ import net.scode.budmall.server.dto.adminUser.AdminUserPwdDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
-import net.scode.budmall.server.vo.AdminUserVo;
+import net.scode.budmall.server.vo.adminUser.AdminUserVo;
 import net.scode.budmall.server.web.AdminWebContext;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;

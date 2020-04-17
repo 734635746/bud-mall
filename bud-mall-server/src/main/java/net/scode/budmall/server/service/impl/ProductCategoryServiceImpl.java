@@ -9,7 +9,7 @@ import net.scode.budmall.server.dto.productCategory.ProductCategoryDto;
 import net.scode.budmall.server.dto.productCategory.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.service.ProductCategoryService;
-import net.scode.budmall.server.vo.ProductCategoryVo;
+import net.scode.budmall.server.vo.productCategory.ProductCategoryVo;
 import net.scode.commons.constant.DataStatus;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

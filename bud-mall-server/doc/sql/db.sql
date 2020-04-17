@@ -163,3 +163,4 @@ CREATE TABLE IF NOT EXISTS `product_sku`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='商品sku表';
 
+/****/

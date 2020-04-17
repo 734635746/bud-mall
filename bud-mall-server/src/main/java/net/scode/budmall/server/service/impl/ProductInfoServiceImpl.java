@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.scode.budmall.server.consts.ProductConsts;
 import net.scode.budmall.server.dao.ProductInfoDao;
 import net.scode.budmall.server.dto.productInfo.ProductInfoDto;
+import net.scode.budmall.server.dto.productSku.ProductSkuDto;
 import net.scode.budmall.server.po.ProductInfo;
+import net.scode.budmall.server.po.ProductSku;
 import net.scode.budmall.server.query.ProductInfoQuery;
 import net.scode.budmall.server.service.ProductInfoService;
 import net.scode.budmall.server.service.ProductSkuService;
@@ -21,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * ProductInfo对应service实现
@@ -72,6 +76,7 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateProductInfoById(Integer id, ProductInfoDto productInfoDto) {
 
         ProductInfo productInfo = new ProductInfo();
@@ -84,8 +89,40 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
         }
         //设置id
         productInfo.setId(id);
+        //修改商品详情信息
+        updateById(productInfo);
 
-        return updateById(productInfo);
+        //处理SKU信息
+        //查询商品下所有之前SKU的id
+        QueryWrapper<ProductSku> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("product_id", id);
+        queryWrapper.select("id");
+        List<ProductSku> list = productSkuService.list(queryWrapper);
+        //存放原先SKU的id
+        List<Integer> oldSkuListId = new ArrayList<>();
+        list.forEach(arg -> {
+            oldSkuListId.add(arg.getId());
+        });
+        //遍历获取前端传过来的SKU信息
+        List<ProductSkuDto> skuList = productInfoDto.getSkuList();
+        for (ProductSkuDto productSkuDto : skuList) {
+            ProductSku productSku = new ProductSku();
+            BeanUtils.copyProperties(productSkuDto, productSku);
+            if (productSku.getId() != 0) {//旧的的SKU
+                productSkuService.updateById(productSku);
+                //移除SKU的id代表不需要删除
+                oldSkuListId.remove(new Integer(productSku.getId()));
+            } else {
+                productSku.setProductId(id);
+                productSkuService.save(productSku);
+            }
+        }
+        //剩下的SKU id代表需要删除的
+        for (Integer oId : oldSkuListId) {
+            productSkuService.removeById(oId);
+        }
+
+        return true;
     }
 
     @Override
@@ -117,7 +154,7 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
 
     @Override
     public ProductInfoVo getProductInfoById(Integer id) {
-
+        //查询商品详情信息
         ProductInfo productInfo = getById(id);
         if (productInfo == null || productInfo.getDataStatus() == DataStatus.DEL.getValue()) {
             throw new ScodeRuntimeException("商品不存在！");
@@ -126,6 +163,15 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
         ProductInfoVo productInfoVo = new ProductInfoVo();
         BeanUtils.copyProperties(productInfo, productInfoVo);
 
+        //处理商品SKU信息
+        QueryWrapper<ProductSku> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("product_id", id);
+        //查询商品对应的SKU信息列表
+        List<ProductSku> productSkuList = productSkuService.list(queryWrapper);
+        productInfoVo.setSkuList(productSkuList);
+
         return productInfoVo;
     }
+
+
 }

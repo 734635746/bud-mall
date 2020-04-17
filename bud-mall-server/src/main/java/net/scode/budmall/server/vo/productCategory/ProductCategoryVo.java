@@ -1,4 +1,4 @@
-package net.scode.budmall.server.vo;
+package net.scode.budmall.server.vo.productCategory;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;

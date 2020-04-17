@@ -14,6 +14,17 @@ import java.math.BigDecimal;
 @Data
 public class ProductSkuDto {
 
+    /**
+     * 自增id
+     */
+    @ApiModelProperty(value = "自增id", dataType = "int", required = true)
+    private int id;
+
+    /**
+     * 商品id
+     */
+    @ApiModelProperty(value = "自增id", dataType = "int", required = true)
+    private int productId;
 
     /**
      * SKU名称

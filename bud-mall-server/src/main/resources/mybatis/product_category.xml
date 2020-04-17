@@ -24,9 +24,9 @@
           AND data_status = 2
         ORDER BY sort DESC
     </select>
-    <resultMap id="nestedCategory" type="net.scode.budmall.server.vo.ProductCategoryVo">
+    <resultMap id="nestedCategory" type="net.scode.budmall.server.vo.productCategory.ProductCategoryVo">
         <id column="category_id" property="categoryId"/>
-        <collection property="children" ofType="net.scode.budmall.server.vo.ProductCategoryVo"
+        <collection property="children" ofType="net.scode.budmall.server.vo.productCategory.ProductCategoryVo"
                     select="listProductCategoryByParentId" column="category_id"/>
     </resultMap>
 

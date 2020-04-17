@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.dto.productCategory.ProductCategoryDto;
 import net.scode.budmall.server.dto.productCategory.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
-import net.scode.budmall.server.vo.ProductCategoryVo;
+import net.scode.budmall.server.vo.productCategory.ProductCategoryVo;
 
 import java.util.List;
 

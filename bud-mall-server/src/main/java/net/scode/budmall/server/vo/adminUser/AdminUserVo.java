@@ -1,4 +1,4 @@
-package net.scode.budmall.server.vo;
+package net.scode.budmall.server.vo.adminUser;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

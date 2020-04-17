@@ -2,7 +2,7 @@ package net.scode.budmall.server.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.scode.budmall.server.po.ProductCategory;
-import net.scode.budmall.server.vo.ProductCategoryVo;
+import net.scode.budmall.server.vo.productCategory.ProductCategoryVo;
 
 import java.util.List;
 
