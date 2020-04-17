@@ -163,4 +163,86 @@ CREATE TABLE IF NOT EXISTS `product_sku`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='商品sku表';
 
-/****/
+/**我的订单表**/
+CREATE TABLE IF NOT EXISTS `order`
+(
+    `id`                  int(11)          NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `user_id`             int(11)          NOT NULL DEFAULT 0 COMMENT '用户id',
+    `product_total_price` decimal(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '商品总价',
+    `freight_price`       decimal(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '运费',
+    `total_price`         decimal(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '订单总价',
+    `shop_id`             int(10) UNSIGNED NOT NULL COMMENT '商家店铺id',
+    `shop_name`           int(10) UNSIGNED NOT NULL COMMENT '商家店铺名称',
+    `contacts`            varchar(20)      NOT NULL DEFAULT '' COMMENT '联系人',
+    `contact_phone`       varchar(11)      NOT NULL DEFAULT '' COMMENT '联系电话',
+    `delivery_address`    varchar(30)      NOT NULL DEFAULT '' COMMENT '具体的收货地址',
+    `order_status`        tinyint(2)       NOT NULL default 0 COMMENT '订单状态,0已下单,1已发货,2已收货(订单完成),3订单失效,4订单取消',
+    `pay_status`          tinyint(2)       NOT NULL default 0 COMMENT '支付状态,0未付款,1已付款,3已退款',
+    `create_time`         timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `pay_time`            timestamp        NOT NULL COMMENT '付款时间',
+    `deliver_time`        timestamp        NOT NULL COMMENT '发货时间',
+    `transaction_time`    timestamp        NOT NULL COMMENT '成交时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='订单表';
+
+/**订单详情表**/
+CREATE TABLE IF NOT EXISTS `order_detail`
+(
+    `id`                  int(11)        NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `order_id`            int(11)        NOT NULL DEFAULT 0 COMMENT '订单id',
+    `product_id`          int(11)        NOT NULL DEFAULT 0 COMMENT '商品id',
+    `product_sku_id`      int(11)        NOT NULL DEFAULT 0 COMMENT '商品SKU信息id',
+    `product_name`        varchar(500)   NOT NULL COMMENT '商品名称',
+    `product_img`         varchar(500)   NOT NULL DEFAULT '' COMMENT '商品图片1张,用于展示',
+    `product_price`       decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '商品单价',
+    `product_number`      int(11)        NOT NULL DEFAULT 0 COMMENT '商品数量',
+    `product_total_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '商品总价',
+    `sku_name`            varchar(500)   NOT NULL DEFAULT '' COMMENT 'SKU名称',
+    `create_time`         timestamp      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='订单表';
+
+
+/**购物车表**/
+CREATE TABLE IF NOT EXISTS `shopping_cart`
+(
+    `id`      int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `user_id` int(11) NOT NULL DEFAULT 0 COMMENT '用户id',
+
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='购物车表';
+
+/**购物车商品详情表**/
+CREATE TABLE IF NOT EXISTS `shopping_cart_detail`
+(
+    `id`               int(11)        NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `shopping_cart_id` int(11)        NOT NULL DEFAULT 0 COMMENT '购物车id',
+    `product_id`       int(11)        NOT NULL DEFAULT 0 COMMENT '商品id',
+    `product_sku_id`   int(11)        NOT NULL DEFAULT 0 COMMENT '商品SKU信息id',
+    `product_name`     varchar(500)   NOT NULL COMMENT '商品名称',
+    `product_img`      varchar(500)   NOT NULL DEFAULT '' COMMENT '商品图片1张,用于展示',
+    `product_price`    decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '商品单价',
+    `sku_name`         varchar(500)   NOT NULL DEFAULT '' COMMENT 'SKU名称',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='购物车商品详情表';
+
+
+/**收货地址表**/
+CREATE TABLE IF NOT EXISTS `delivery_address`
+(
+    `id`               int(11)     NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `user_id`          int(11)     NOT NULL DEFAULT 0 COMMENT '用户id',
+    `contacts`         varchar(20) NOT NULL DEFAULT '' COMMENT '联系人',
+    `contact_phone`    varchar(11) NOT NULL DEFAULT '' COMMENT '联系电话',
+    `province`         varchar(30) NOT NULL DEFAULT '' COMMENT '省份/地区',
+    `city`             varchar(30) NOT NULL DEFAULT '' COMMENT '城市',
+    `district`         varchar(30) NOT NULL DEFAULT '' COMMENT '区/县',
+    `town`             varchar(30) NOT NULL DEFAULT '' COMMENT '镇',
+    `detailed_address` varchar(30) NOT NULL DEFAULT '' COMMENT '详细地址：如街道、门牌号、小区、楼栋号、单元室等',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='收货地址表';
