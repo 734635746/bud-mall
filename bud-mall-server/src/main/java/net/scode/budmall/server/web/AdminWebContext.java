@@ -19,8 +19,6 @@ public class AdminWebContext {
 
     /**
      * 获得公共参数
-     *
-     * @return
      */
     public static AdminWebContext.PublicParameter getPublicParameter() {
         return publicParameterHolder.get();
@@ -35,8 +33,6 @@ public class AdminWebContext {
 
     /**
      * 用户IP
-     *
-     * @return
      */
     public static String getIp() {
         AdminWebContext.PublicParameter p = publicParameterHolder.get();
@@ -45,8 +41,6 @@ public class AdminWebContext {
 
     /**
      * token
-     *
-     * @return
      */
     public static String getToken() {
         AdminWebContext.PublicParameter p = publicParameterHolder.get();
@@ -79,8 +73,14 @@ public class AdminWebContext {
          */
         private String ip;
 
+        /**
+         * 管理员id
+         */
         private int adminUserId;
 
+        /**
+         * 管理员账号
+         */
         private String adminAccount;
     }
 }

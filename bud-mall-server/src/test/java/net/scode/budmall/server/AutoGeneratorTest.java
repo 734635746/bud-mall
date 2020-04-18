@@ -47,6 +47,7 @@ public class AutoGeneratorTest {
         //auto.generate(config, "product_service", "ProductService");
         //auto.generate(config, "product_sku", "ProductSku");
         //auto.generate(config, "shop", "Shop");
+        //auto.generate(config, "delivery_address", "DeliveryAddress");
 
     }
 

@@ -228,16 +228,16 @@ CREATE TABLE IF NOT EXISTS `shopping_cart_detail`
 /**收货地址表**/
 CREATE TABLE IF NOT EXISTS `delivery_address`
 (
-    `id`               int(11)     NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    `user_id`          int(11)     NOT NULL DEFAULT 0 COMMENT '用户id',
-    `contacts_name`    varchar(20) NOT NULL DEFAULT '' COMMENT '收件人姓名',
-    `contact_phone`    varchar(11) NOT NULL DEFAULT '' COMMENT '收件人手机号',
-    `province`         varchar(30) NOT NULL DEFAULT '' COMMENT '省份/地区',
-    `city`             varchar(30) NOT NULL DEFAULT '' COMMENT '城市',
-    `district`         varchar(30) NOT NULL DEFAULT '' COMMENT '区/县',
-    `detailed_address` varchar(30) NOT NULL DEFAULT '' COMMENT '详细地址：如街道、门牌号、小区、楼栋号、单元室等',
-    `is_default`       tinyint(1)  NOT NULL DEFAULT 0 COMMENT '是否默认 0非默认 1默认',
-    `sort`             smallint(4) NOT NULL default 0 COMMENT '排序权重',
+    `id`               int(11)      NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `user_id`          int(11)      NOT NULL DEFAULT 0 COMMENT '用户id',
+    `contacts_name`    varchar(20)  NOT NULL DEFAULT '' COMMENT '收件人姓名',
+    `contact_phone`    varchar(11)  NOT NULL DEFAULT '' COMMENT '收件人手机号',
+    `province`         varchar(30)  NOT NULL DEFAULT '' COMMENT '省份/地区',
+    `city`             varchar(30)  NOT NULL DEFAULT '' COMMENT '城市',
+    `district`         varchar(30)  NOT NULL DEFAULT '' COMMENT '区/县',
+    `detailed_address` varchar(300) NOT NULL DEFAULT '' COMMENT '详细地址：如街道、门牌号、小区、楼栋号、单元室等',
+    `is_default`       tinyint(1)   NOT NULL DEFAULT 0 COMMENT '是否默认 0非默认 1默认',
+    `sort`             smallint(4)  NOT NULL default 0 COMMENT '排序权重',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='收货地址表';

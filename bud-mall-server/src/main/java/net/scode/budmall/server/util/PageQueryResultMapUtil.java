@@ -3,6 +3,7 @@ package net.scode.budmall.server.util;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
+import net.scode.budmall.server.po.ProductBrand;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.po.ProductInfo;
 import net.scode.budmall.server.service.ProductBrandService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 基于MyBatis-Plus分页查询结果映射工具类
@@ -84,10 +86,46 @@ public class PageQueryResultMapUtil {
         map.put("size", productInfoPage.getSize());
         map.put("pages", productInfoPage.getPages());
         map.put("current", productInfoPage.getCurrent());
-        //获取数据集合
+        //获取查询的商品数据集合
         List<ProductInfo> records = productInfoPage.getRecords();
-        //转换后的数据集合
+        //转换后的商品数据集合
         ArrayList<ProductInfoListVo> productInfoListVos = new ArrayList<>();
+        //商品数据集合分类Id列表
+        List<Integer> categoryIdList = new ArrayList<>();
+        //商品数据集合分类Id列表
+        List<Integer> brandIdList = new ArrayList<>();
+        //商品分类集合 商品Id-->商品所属分类名字
+        Map<Integer, String> categoryMap = new HashMap<>();
+        //商品品牌集合 商品Id-->商品所属品牌名字
+        Map<Integer, String> brandMap = new HashMap<>();
+
+        //构建商品数据的分类id列表和品牌id列表
+        for (ProductInfo record : records) {
+            categoryIdList.add(record.getCategoryId());
+            brandIdList.add(record.getBrandId());
+        }
+
+        //查询商品数据的分类名字并保存到Map中
+        QueryWrapper<ProductCategory> categoryQueryWrapper = new QueryWrapper<>();
+        categoryQueryWrapper.select("category_id", "category_name");
+        categoryQueryWrapper.in("category_id", categoryIdList);
+        //查询
+        List<ProductCategory> categoryList = productCategoryService.list(categoryQueryWrapper);
+        for (ProductCategory category : categoryList) {
+            System.out.println(category.getCategoryName());
+            categoryMap.put(category.getCategoryId(), category.getCategoryName());
+        }
+
+        //查询商品数据的品牌名字并保存到Map中
+        QueryWrapper<ProductBrand> brandQueryWrapper = new QueryWrapper<>();
+        brandQueryWrapper.select("id", "brand_name");
+        brandQueryWrapper.in("id", brandIdList);
+        //查询
+        List<ProductBrand> brandList = productBrandService.list(brandQueryWrapper);
+        for (ProductBrand brand : brandList) {
+            brandMap.put(brand.getId(), brand.getBrandName());
+        }
+
 
         for (ProductInfo record : records) {
 
@@ -103,13 +141,9 @@ public class PageQueryResultMapUtil {
             String price = record.getPrice() + " / " + record.getOriginPrice();
             productInfoListVo.setPrice(price);
             //处理分类名字
-            QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("category_id", record.getCategoryId());
-            String categoryName = productCategoryService.getOne(queryWrapper).getCategoryName();
-            productInfoListVo.setCategoryName(categoryName);
+            productInfoListVo.setCategoryName(categoryMap.get(record.getCategoryId()));
             //处理品牌名字
-            String brandName = productBrandService.getById(record.getBrandId()).getBrandName();
-            productInfoListVo.setBrandName(brandName);
+            productInfoListVo.setBrandName(brandMap.get(record.getBrandId()));
 
             productInfoListVos.add(productInfoListVo);
         }
