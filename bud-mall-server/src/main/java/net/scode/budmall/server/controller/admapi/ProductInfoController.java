@@ -74,7 +74,7 @@ public class ProductInfoController {
             @PathVariable(value = "page") Long page,
             @ApiParam(name = "limit", value = "每页记录数", required = true)
             @PathVariable(value = "limit") Long limit,
-            @ApiParam(name = "productInfoQuery", value = "商品查询信息封装对象", required = false)
+            @ApiParam(name = "productInfoQuery", value = "商品查询信息封装对象")
                     ProductInfoQuery productInfoQuery) {
 
 

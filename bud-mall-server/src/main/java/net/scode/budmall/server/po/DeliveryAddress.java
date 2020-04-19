@@ -22,7 +22,7 @@ public class DeliveryAddress {
     private int id;
 
     /**
-     * 自增id
+     * 用户id
      */
     @ApiModelProperty(value = "用户id", dataType = "int")
     private int userId;

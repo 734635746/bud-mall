@@ -17,9 +17,7 @@ public class AuthConsts {
 
     public final static String USER_PERMISSIONS = "permissions";
 
-    /**
-     *
-     */
+
     public final static String ADMIN_DELETE = "admin:delete";
 
 }

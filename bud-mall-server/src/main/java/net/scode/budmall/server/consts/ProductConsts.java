@@ -7,6 +7,7 @@ package net.scode.budmall.server.consts;
  * @since 2020/4/10 - 21:59
  */
 public class ProductConsts {
+
     /**
      * 商品分类默认图片
      */
