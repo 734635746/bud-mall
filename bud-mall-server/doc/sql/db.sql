@@ -206,8 +206,8 @@ CREATE TABLE IF NOT EXISTS `order_product`
   DEFAULT CHARSET = utf8 COMMENT ='订单商品表';
 
 
-/**购物车表**/
-CREATE TABLE IF NOT EXISTS `shopping_cart_detail`
+/**购物车商品表**/
+CREATE TABLE IF NOT EXISTS `shopping_cart_product`
 (
     `id`             int(11)        NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `user_id`        int(11)        NOT NULL DEFAULT 0 COMMENT '用户id',

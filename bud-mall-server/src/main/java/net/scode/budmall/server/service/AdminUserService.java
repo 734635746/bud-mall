@@ -31,7 +31,7 @@ public interface AdminUserService extends IService<AdminUser> {
      * @param id 待删除管理员id
      * @return 是否删除成功
      */
-    boolean deleteById(Integer id);
+    boolean removeAdminUserById(Integer id);
 
     /**
      * 禁止管理员登陆（将data_status设置为禁用状态）

@@ -20,10 +20,10 @@ import java.util.List;
  * @since 2020/4/16 - 0:22
  */
 @Slf4j
-@Api(tags = {"商品品牌管理接口"})
+@Api(tags = {"后台商品品牌管理接口"})
 @RestController
 @RequestMapping("/admapi/product/brand")
-public class ProductBrandController {
+public class AdminProductBrandController {
 
     @Autowired
     private ProductBrandService productBrandService;

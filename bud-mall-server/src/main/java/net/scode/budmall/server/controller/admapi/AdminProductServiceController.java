@@ -20,10 +20,10 @@ import java.util.List;
  * @since 2020/4/15 - 20:01
  */
 @Slf4j
-@Api(tags = {"商品服务管理接口"})
+@Api(tags = {"后台商品服务管理接口"})
 @RestController
 @RequestMapping("/admapi/product/service")
-public class ProductServiceController {
+public class AdminProductServiceController {
 
     @Autowired
     private ProductServiceService productServiceService;

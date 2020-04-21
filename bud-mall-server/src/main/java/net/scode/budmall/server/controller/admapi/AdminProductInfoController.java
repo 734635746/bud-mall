@@ -22,10 +22,10 @@ import java.util.HashMap;
  * @since 2020/4/10 - 22:56
  */
 @Slf4j
-@Api(tags = {"商品详情管理接口"})
+@Api(tags = {"后台商品详情管理接口"})
 @RestController
 @RequestMapping("/admapi/product/info")
-public class ProductInfoController {
+public class AdminProductInfoController {
 
     @Autowired
     private ProductInfoService productInfoService;

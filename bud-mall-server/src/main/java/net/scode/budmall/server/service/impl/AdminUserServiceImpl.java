@@ -68,7 +68,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserDao, AdminUser> i
 
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean removeAdminUserById(Integer id) {
         return updateAdminUserDataStatus(id, DataStatus.DEL) == 1;
     }
 

@@ -21,13 +21,13 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 /**
- * 管理员用户信息后台接口
+ * 后台管理员用户信息接口
  *
  * @author liuyoubin
  * @since 2020/4/6 - 16:55
  */
 @Slf4j
-@Api(tags = {"管理员用户信息后台接口"})
+@Api(tags = {"后台管理员用户信息接口"})
 @RestController
 @RequestMapping("/admapi/user")
 public class AdminUserController {
@@ -59,7 +59,7 @@ public class AdminUserController {
 
     @ApiOperation(value = "根据id获取管理员信息")
     @GetMapping("/{id}")
-    public R get(
+    public R getAdminUserById(
             @ApiParam(name = "id", value = "管理员id", required = true)
             @PathVariable(value = "id") @NotNull(message = "id不能为空") Integer id) {
 
@@ -70,12 +70,12 @@ public class AdminUserController {
 
     @ApiOperation(value = "根据Id删除管理员")
     @DeleteMapping("/{id}")
-    public R deleteAdminUser(
+    public R removeAdminUser(
             @ApiParam(name = "id", value = "管理员id", required = true)
             @PathVariable(value = "id") @NotNull(message = "id不能为空") Integer id) {
 
         //删除管理员
-        boolean isSuccess = adminUserService.deleteById(id);
+        boolean isSuccess = adminUserService.removeAdminUserById(id);
 
         return isSuccess ? R.ok() : R.error("【删除管理员】操作失败");
 

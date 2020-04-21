@@ -22,10 +22,10 @@ import java.util.List;
  * @since 2020/4/10 - 15:38
  */
 @Slf4j
-@Api(tags = {"商品分类管理接口"})
+@Api(tags = {"后台商品分类管理接口"})
 @RestController
 @RequestMapping("/admapi/product/category")
-public class ProductCategoryController {
+public class AdminProductCategoryController {
 
     @Autowired
     private ProductCategoryService productCategoryService;

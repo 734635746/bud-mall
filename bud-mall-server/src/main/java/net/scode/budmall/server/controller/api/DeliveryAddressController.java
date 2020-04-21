@@ -48,7 +48,7 @@ public class DeliveryAddressController {
     @DeleteMapping("/{id}")
     public R removeDeliveryAddress(
             @ApiParam(name = "id", value = "收货地址id", required = true)
-            @PathVariable(value = "id") @NotNull(message = "收货地址id不能为空") Integer id) {
+            @PathVariable(value = "id") Integer id) {
 
         boolean isSuccess = deliveryAddressService.removeById(id);
 
