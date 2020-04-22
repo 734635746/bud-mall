@@ -228,18 +228,18 @@ CREATE TABLE IF NOT EXISTS `shopping_cart_product`
 /**收货地址表**/
 CREATE TABLE IF NOT EXISTS `delivery_address`
 (
-    `id`               int(11)      NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    `user_id`          int(11)      NOT NULL DEFAULT 0 COMMENT '用户id',
-    `contacts_name`    varchar(20)  NOT NULL DEFAULT '' COMMENT '收件人姓名',
-    `contact_phone`    varchar(11)  NOT NULL DEFAULT '' COMMENT '收件人手机号',
-    `province`         varchar(30)  NOT NULL DEFAULT '' COMMENT '省份/地区',
-    `city`             varchar(30)  NOT NULL DEFAULT '' COMMENT '城市',
-    `district`         varchar(30)  NOT NULL DEFAULT '' COMMENT '区/县',
-    `detailed_address` varchar(300) NOT NULL DEFAULT '' COMMENT '详细地址：如街道、门牌号、小区、楼栋号、单元室等',
-    `is_default`       tinyint(1)   NOT NULL DEFAULT 0 COMMENT '是否默认 0非默认 1默认',
-    `sort`             smallint(4)  NOT NULL default 0 COMMENT '排序权重',
+    `id`               INT(11)     NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `user_id`          INT(11)     NOT NULL DEFAULT 0 COMMENT '用户id',
+    `contacts_name`    VARCHAR(20) NOT NULL DEFAULT '' COMMENT '收件人姓名',
+    `contact_phone`    VARCHAR(11) NOT NULL DEFAULT '' COMMENT '收件人手机号',
+    `province`         VARCHAR(30) NOT NULL DEFAULT '' COMMENT '省份/地区',
+    `city`             VARCHAR(30) NOT NULL DEFAULT '' COMMENT '城市',
+    `district`         VARCHAR(30) NOT NULL DEFAULT '' COMMENT '区/县',
+    `detailed_address` VARCHAR(30) NOT NULL DEFAULT '' COMMENT '详细地址：如街道、门牌号、小区、楼栋号、单元室等',
+    `is_default`       TINYINT(1)  NOT NULL DEFAULT 0 COMMENT '是否默认 0非默认 1默认',
+    `sort`             SMALLINT(4) NOT NULL DEFAULT 0 COMMENT '排序权重',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB
+) ENGINE = INNODB
   DEFAULT CHARSET = utf8 COMMENT ='收货地址表';
 
 /**省市区数据**/
@@ -256,3 +256,17 @@ CREATE TABLE `sys_city`
     KEY `idx_parent_id` (`parent_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='省市区';
+
+/**横幅表**/
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner`
+(
+    `id`       int(11)      NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `title`    varchar(100) NOT NULL DEFAULT '' COMMENT '横幅标题',
+    `image`    varchar(500) NOT NULL DEFAULT '' COMMENT '横幅图片地址',
+    `content`  varchar(500) NOT NULL DEFAULT '' COMMENT '横幅信息 具体为商品地址还是外链地址',
+    `type`     tinyint(1)   NOT NULL DEFAULT 0 COMMENT '横幅类型 0商品 1外链',
+    `position` tinyint(1)   NOT NULL DEFAULT 1 COMMENT '横幅位置,1第一处横幅 2第二处横幅',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='横幅表';

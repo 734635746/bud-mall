@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import net.scode.budmall.server.dto.ShoppingCart.ShoppingCartProductDto;
+import net.scode.budmall.server.dto.shoppingCart.ShoppingCartProductDto;
 import net.scode.budmall.server.po.ShoppingCartProduct;
 import net.scode.budmall.server.service.ShoppingCartProductService;
 import net.scode.commons.core.R;

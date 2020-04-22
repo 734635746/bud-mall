@@ -1,4 +1,4 @@
-package net.scode.budmall.server.dto.ShoppingCart;
+package net.scode.budmall.server.dto.shoppingCart;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

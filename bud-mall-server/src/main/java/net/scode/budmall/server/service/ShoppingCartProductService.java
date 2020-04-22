@@ -1,7 +1,7 @@
 package net.scode.budmall.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.scode.budmall.server.dto.ShoppingCart.ShoppingCartProductDto;
+import net.scode.budmall.server.dto.shoppingCart.ShoppingCartProductDto;
 import net.scode.budmall.server.po.ShoppingCartProduct;
 
 import java.util.List;

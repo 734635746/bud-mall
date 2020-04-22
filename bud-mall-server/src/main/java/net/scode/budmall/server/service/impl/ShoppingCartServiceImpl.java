@@ -4,7 +4,7 @@ package net.scode.budmall.server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.scode.budmall.server.dao.ShoppingCartProductDao;
-import net.scode.budmall.server.dto.ShoppingCart.ShoppingCartProductDto;
+import net.scode.budmall.server.dto.shoppingCart.ShoppingCartProductDto;
 import net.scode.budmall.server.po.ShoppingCartProduct;
 import net.scode.budmall.server.po.UserInfo;
 import net.scode.budmall.server.service.ShoppingCartProductService;
@@ -76,7 +76,6 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartProductDao,
         if (user == null) {
             throw new ScodeRuntimeException("用户不存在");
         }
-
         //构造查询参数
         QueryWrapper<ShoppingCartProduct> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
