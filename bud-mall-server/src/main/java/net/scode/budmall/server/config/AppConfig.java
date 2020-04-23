@@ -30,4 +30,7 @@ public class AppConfig {
 
     @Value("${bud-mall.upload-base-url}")
     private String uploadBaseUrl;
+
+    @Value("${product.url}")
+    private String productUrl;
 }

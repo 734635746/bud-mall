@@ -45,3 +45,6 @@ bud-mall:
   # 图片访问根路径
   upload-base-url: http://localhost:${server.port}/upload/
 
+product:
+  #商品地址
+  url: http://localhost:${server.port}/api/product/info

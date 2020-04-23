@@ -30,13 +30,13 @@ public class BannerController {
     @Autowired
     private BannerService bannerService;
 
-    @ApiOperation(value = "获取当前用户购物车商品列表")
+    @ApiOperation(value = "获取指定位置的横幅列表")
     @GetMapping("/list")
     public R listBannerByPosition(
             @ApiParam(name = "position", value = "横幅位置,1第一处横幅 2第二处横幅", required = true)
             @RequestParam(value = "position") Integer position) {
 
-        List<BannerVo> list = bannerService.listBannerByPosition(position);
+        List<BannerVo> list = bannerService.listBannerVoByPosition(position);
 
         return R.data(list);
 
