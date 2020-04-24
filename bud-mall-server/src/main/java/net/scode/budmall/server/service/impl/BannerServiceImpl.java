@@ -14,8 +14,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Banner对应service实现
@@ -30,20 +30,17 @@ public class BannerServiceImpl extends ServiceImpl<BannerDao, Banner> implements
 
     @Override
     public List<BannerVo> listBannerVoByPosition(Integer position) {
-
-
+        //查询
         QueryWrapper<Banner> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("position", position);
-        queryWrapper.select("id", "title", "image", "content");
+        queryWrapper.select("title", "image", "content");
         List<Banner> list = list(queryWrapper);
 
-        //BannerVo列表
-        List<BannerVo> bannerVos = new ArrayList<>();
-        for (Banner banner : list) {
+        List<BannerVo> bannerVos = list.stream().map(banner -> {
             BannerVo bannerVo = new BannerVo();
             BeanUtils.copyProperties(banner, bannerVo);
-            bannerVos.add(bannerVo);
-        }
+            return bannerVo;
+        }).collect(Collectors.toList());
 
         return bannerVos;
     }

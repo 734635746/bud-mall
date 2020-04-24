@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 横幅管理前台接口
+ * 前台横幅管理接口
  *
  * @author liuyoubin
  * @since 2020/4/22 - 21:45
  */
 @Slf4j
-@Api(tags = {"横幅管理前台接口"})
+@Api(tags = {"前台横幅管理接口"})
 @RestController
 @RequestMapping("/api/banner")
 public class BannerController {

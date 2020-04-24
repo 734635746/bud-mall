@@ -67,11 +67,11 @@ public class AdminBannerController {
     }
 
     @ApiOperation(value = "修改商品横幅信息")
-    @PutMapping("/ofOuterChain/{id}")
+    @PutMapping("/ofProduct/{id}")
     public R updateOuterChainBanner(
             @ApiParam(name = "productBannerDto", value = "商品横幅信息", required = true)
             @RequestBody @Validated ProductBannerDto productBannerDto,
-            @ApiParam(name = "id", value = "商品横幅信息", required = true)
+            @ApiParam(name = "id", value = "商品横幅id", required = true)
             @PathVariable(value = "id") Integer id) {
 
         boolean isSuccess = bannerService.updateBanner(id, productBannerDto);
@@ -81,7 +81,7 @@ public class AdminBannerController {
     }
 
     @ApiOperation(value = "修改外链横幅信息")
-    @PutMapping("/ofProduct/{id}")
+    @PutMapping("/ofOuterChain/{id}")
     public R updateProductBanner(
             @ApiParam(name = "outerChainBannerDto", value = "外链横幅信息", required = true)
             @RequestBody @Validated OuterChainBannerDto outerChainBannerDto,

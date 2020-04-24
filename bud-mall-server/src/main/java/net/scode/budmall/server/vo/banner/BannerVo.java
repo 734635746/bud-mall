@@ -10,11 +10,6 @@ import lombok.Data;
 @Data
 public class BannerVo {
 
-    /**
-     * 自增id
-     */
-    @ApiModelProperty(value = "自增id", dataType = "int")
-    private int id;
 
     /**
      * 横幅标题

@@ -46,5 +46,5 @@ bud-mall:
   upload-base-url: http://localhost:${server.port}/upload/
 
 product:
-  #商品地址
+  #商品具体跳转地址
   url: http://localhost:${server.port}/api/product/info

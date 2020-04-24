@@ -51,6 +51,7 @@ public class AutoGeneratorTest {
         //auto.generate(config, "sys_city", "SysCity");
         //auto.generate(config, "shopping_cart", "ShoppingCart");
         //auto.generate(config, "banner", "Banner");
+        //auto.generate(config, "navigation", "Navigation");
     }
 
 

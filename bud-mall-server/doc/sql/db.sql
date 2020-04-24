@@ -270,3 +270,16 @@ CREATE TABLE `banner`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='横幅表';
+
+/**导航表**/
+DROP TABLE IF EXISTS `navigation`;
+CREATE TABLE `navigation`
+(
+    `id`      int(11)      NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `title`   varchar(100) NOT NULL DEFAULT '' COMMENT '导航标题',
+    `image`   varchar(500) NOT NULL DEFAULT '' COMMENT '导航图片地址',
+    `content` varchar(500) NOT NULL DEFAULT '' COMMENT '导航跳转地址',
+    `type`    tinyint(1)   NOT NULL DEFAULT 0 COMMENT '导航类型 0分类导航',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='导航表';

@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * 收货地址管理前台接口
+ * 前台收货地址管理接口
  *
  * @author liuyoubin
  * @since 2020/4/18 - 15:40
  */
 @Slf4j
-@Api(tags = {"收货地址管理前台接口"})
+@Api(tags = {"前台收货地址管理接口"})
 @RestController
 @RequestMapping("/api/delivery/address")
 public class DeliveryAddressController {

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 购物车管理前台接口
+ * 前台购物车管理接口
  *
  * @author liuyoubin
  * @since 2020/4/20 - 23:08
  */
 @Slf4j
-@Api(tags = {"购物车商品管理前台接口"})
+@Api(tags = {"前台购物车商品管理接口"})
 @RestController
 @RequestMapping("/api/shoppingCart/product")
 public class ShoppingCartController {
