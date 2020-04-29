@@ -9,7 +9,8 @@ import net.scode.budmall.server.dto.productCategory.ProductCategoryDto;
 import net.scode.budmall.server.dto.productCategory.ProductCategoryUpdateDto;
 import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.service.ProductCategoryService;
-import net.scode.budmall.server.vo.productCategory.ProductCategoryVo;
+import net.scode.budmall.server.vo.appVo.productCategory.ProductCategoryAppVo;
+import net.scode.budmall.server.vo.webVo.productCategory.ProductCategoryVo;
 import net.scode.commons.constant.DataStatus;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,6 @@ import java.util.List;
 @Service
 public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, ProductCategory> implements ProductCategoryService {
 
-    public static void main(String[] args) {
-        System.out.println(StringUtils.isBlank(""));
-    }
 
     @Override
     public boolean saveProductCategory(ProductCategoryDto productCategoryDto) {
@@ -40,7 +38,6 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
         }
 
         productCategory.setDataStatus(DataStatus.NORMAL.getValue());
-        System.out.println(productCategory);
         /**
          * category_id的设置规则
          *
@@ -88,10 +85,16 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
 
 
     @Override
-    public List<ProductCategoryVo> listAllProductCategory() {
+    public List<ProductCategoryVo> listProductCategory() {
 
         //获取parent_id为0的所有商品分类列表
         return baseMapper.listProductCategoryByParentId(0);
 
+    }
+
+    @Override
+    public List<ProductCategoryAppVo> listWebProductCategory() {
+        //获取parent_id为0的所有App端商品分类列表
+        return baseMapper.listAppProductCategoryByParentId(0);
     }
 }

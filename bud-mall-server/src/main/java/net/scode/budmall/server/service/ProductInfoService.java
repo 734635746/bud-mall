@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.dto.productInfo.ProductInfoDto;
 import net.scode.budmall.server.po.ProductInfo;
 import net.scode.budmall.server.query.ProductInfoQuery;
-import net.scode.budmall.server.vo.productInfo.ProductInfoVo;
+import net.scode.budmall.server.vo.appVo.productInfo.ProductListAppVo;
+import net.scode.budmall.server.vo.webVo.productInfo.ProductInfoVo;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * ProductInfo对应Service
@@ -56,4 +58,13 @@ public interface ProductInfoService extends IService<ProductInfo> {
      * @return 商品详情数据
      */
     ProductInfoVo getProductInfoById(Integer id);
+
+
+    /**
+     * 获取App端商品列表信息
+     *
+     * @return 商品列表信息
+     */
+    List<ProductListAppVo> listAppProductInfo();
+
 }

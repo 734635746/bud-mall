@@ -3,8 +3,8 @@ package net.scode.budmall.server.controller.api;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import net.scode.budmall.server.service.NavigationService;
-import net.scode.budmall.server.vo.appVo.navigation.NavigationAppVo;
+import net.scode.budmall.server.service.ProductCategoryService;
+import net.scode.budmall.server.vo.appVo.productCategory.ProductCategoryAppVo;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,28 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 前台导航调用接口
+ * 前台商品分类调用接口
  *
  * @author liuyoubin
- * @since 2020/4/23 - 20:22
+ * @since 2020/4/28 - 13:43
  */
 @Slf4j
-@Api(tags = {"前台导航调用接口"})
+@Api(tags = {"前台商品分类调用接口"})
 @RestController
-@RequestMapping("/api/navigation")
-public class NavigationController {
+@RequestMapping("/api/product/category")
+public class ProductCategoryController {
 
     @Autowired
-    private NavigationService navigationService;
+    private ProductCategoryService productCategoryService;
 
-    @ApiOperation(value = "获取导航列表")
+    @ApiOperation(value = "商品分类列表")
     @GetMapping("/list")
-    public R listNavigations() {
+    public R listProductCategory() {
 
-        List<NavigationAppVo> list = navigationService.listNavigations();
+        List<ProductCategoryAppVo> list = productCategoryService.listWebProductCategory();
 
         return R.data(list);
-
     }
 
 }

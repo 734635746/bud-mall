@@ -24,10 +24,27 @@
           AND data_status = 2
         ORDER BY sort DESC
     </select>
-    <resultMap id="nestedCategory" type="net.scode.budmall.server.vo.productCategory.ProductCategoryVo">
+
+    <resultMap id="nestedCategory" type="net.scode.budmall.server.vo.webVo.productCategory.ProductCategoryVo">
         <id column="category_id" property="categoryId"/>
-        <collection property="children" ofType="net.scode.budmall.server.vo.productCategory.ProductCategoryVo"
+        <collection property="children" ofType="net.scode.budmall.server.vo.webVo.productCategory.ProductCategoryVo"
                     select="listProductCategoryByParentId" column="category_id"/>
     </resultMap>
 
+    <select id="listAppProductCategoryByParentId" parameterType="int" resultMap="nestedAppCategory">
+        SELECT category_id,
+               parent_id,
+               category_name,
+               icon
+        FROM product_category
+        WHERE parent_id = #{parentId}
+          AND data_status = 2
+        ORDER BY sort DESC
+    </select>
+
+    <resultMap id="nestedAppCategory" type="net.scode.budmall.server.vo.appVo.productCategory.ProductCategoryAppVo">
+        <id column="category_id" property="categoryId"/>
+        <collection property="children" ofType="net.scode.budmall.server.vo.appVo.productCategory.ProductCategoryAppVo"
+                    select="listAppProductCategoryByParentId" column="category_id"/>
+    </resultMap>
 </mapper>

@@ -8,7 +8,7 @@ import net.scode.budmall.server.po.ProductCategory;
 import net.scode.budmall.server.po.ProductInfo;
 import net.scode.budmall.server.service.ProductBrandService;
 import net.scode.budmall.server.service.ProductCategoryService;
-import net.scode.budmall.server.vo.productInfo.ProductInfoListVo;
+import net.scode.budmall.server.vo.webVo.productInfo.ProductInfoListVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

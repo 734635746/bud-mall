@@ -2,7 +2,8 @@ package net.scode.budmall.server.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import net.scode.budmall.server.po.ProductCategory;
-import net.scode.budmall.server.vo.productCategory.ProductCategoryVo;
+import net.scode.budmall.server.vo.appVo.productCategory.ProductCategoryAppVo;
+import net.scode.budmall.server.vo.webVo.productCategory.ProductCategoryVo;
 
 import java.util.List;
 
@@ -28,4 +29,12 @@ public interface ProductCategoryDao extends BaseMapper<ProductCategory> {
      * @return 商品分类嵌套列表
      */
     List<ProductCategoryVo> listProductCategoryByParentId(int parentId);
+
+    /**
+     * 获取指定parent_id的App端商品分类列表
+     *
+     * @param parentId 父级分类Id
+     * @return 商品分类嵌套列表
+     */
+    List<ProductCategoryAppVo> listAppProductCategoryByParentId(int parentId);
 }

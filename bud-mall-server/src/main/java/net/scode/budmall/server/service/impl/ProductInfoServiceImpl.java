@@ -15,7 +15,8 @@ import net.scode.budmall.server.query.ProductInfoQuery;
 import net.scode.budmall.server.service.ProductInfoService;
 import net.scode.budmall.server.service.ProductSkuService;
 import net.scode.budmall.server.util.PageQueryResultMapUtil;
-import net.scode.budmall.server.vo.productInfo.ProductInfoVo;
+import net.scode.budmall.server.vo.appVo.productInfo.ProductListAppVo;
+import net.scode.budmall.server.vo.webVo.productInfo.ProductInfoVo;
 import net.scode.commons.constant.DataStatus;
 import net.scode.commons.exception.ScodeRuntimeException;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ProductInfo对应service实现
@@ -171,6 +173,23 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
         productInfoVo.setSkuList(productSkuList);
 
         return productInfoVo;
+    }
+
+    @Override
+    public List<ProductListAppVo> listAppProductInfo() {
+
+        //构造查询参数对象
+        QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("sort");
+        queryWrapper.ne("data_status", DataStatus.DEL);
+        queryWrapper.select("id", "product_name", "product_img", "price");
+        List<ProductInfo> productInfos = list(queryWrapper);
+
+        return productInfos.stream().map(productInfo -> {
+            ProductListAppVo productListAppVo = new ProductListAppVo();
+            BeanUtils.copyProperties(productInfo, productListAppVo);
+            return productListAppVo;
+        }).collect(Collectors.toList());
     }
 
 

@@ -1,4 +1,4 @@
-package net.scode.budmall.server.vo.productCategory;
+package net.scode.budmall.server.vo.webVo.productCategory;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +22,7 @@ public class ProductCategoryVo {
     @ApiModelProperty(value = "分类id", dataType = "int")
     @TableId
     private int categoryId;
+
     /**
      * 上级分类ID，一级为0
      */

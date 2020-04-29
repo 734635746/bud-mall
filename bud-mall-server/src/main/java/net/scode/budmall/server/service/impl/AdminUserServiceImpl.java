@@ -16,7 +16,7 @@ import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
 import net.scode.budmall.server.service.AdminUserService;
 import net.scode.budmall.server.util.PageQueryResultMapUtil;
-import net.scode.budmall.server.vo.adminUser.AdminUserVo;
+import net.scode.budmall.server.vo.webVo.adminUser.AdminUserVo;
 import net.scode.commons.constant.Consts;
 import net.scode.commons.constant.DataStatus;
 import net.scode.commons.exception.ScodeRuntimeException;

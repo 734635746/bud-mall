@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.scode.budmall.server.dao.ProductBrandDao;
 import net.scode.budmall.server.po.ProductBrand;
 import net.scode.budmall.server.service.ProductBrandService;
-import net.scode.budmall.server.vo.productBrand.ProductBrandOptionVo;
+import net.scode.budmall.server.vo.webVo.productBrand.ProductBrandOptionVo;
 import net.scode.commons.constant.DataStatus;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

@@ -9,7 +9,7 @@ import net.scode.budmall.server.dto.banner.OuterChainBannerDto;
 import net.scode.budmall.server.dto.banner.ProductBannerDto;
 import net.scode.budmall.server.po.Banner;
 import net.scode.budmall.server.service.BannerService;
-import net.scode.budmall.server.vo.banner.BannerVo;
+import net.scode.budmall.server.vo.appVo.banner.BannerAppVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,20 +29,20 @@ public class BannerServiceImpl extends ServiceImpl<BannerDao, Banner> implements
     private AppConfig appConfig;
 
     @Override
-    public List<BannerVo> listBannerVoByPosition(Integer position) {
+    public List<BannerAppVo> listBannerVoByPosition(Integer position) {
         //查询
         QueryWrapper<Banner> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("position", position);
-        queryWrapper.select("title", "image", "content");
+        queryWrapper.select("title", "image", "content", "type");
         List<Banner> list = list(queryWrapper);
 
-        List<BannerVo> bannerVos = list.stream().map(banner -> {
-            BannerVo bannerVo = new BannerVo();
-            BeanUtils.copyProperties(banner, bannerVo);
-            return bannerVo;
+        List<BannerAppVo> bannerAppVos = list.stream().map(banner -> {
+            BannerAppVo bannerAppVo = new BannerAppVo();
+            BeanUtils.copyProperties(banner, bannerAppVo);
+            return bannerAppVo;
         }).collect(Collectors.toList());
 
-        return bannerVos;
+        return bannerAppVos;
     }
 
     @Override

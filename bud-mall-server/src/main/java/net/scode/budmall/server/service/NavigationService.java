@@ -3,7 +3,7 @@ package net.scode.budmall.server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.dto.navigation.CategoryNavigationDto;
 import net.scode.budmall.server.po.Navigation;
-import net.scode.budmall.server.vo.navigation.NavigationVo;
+import net.scode.budmall.server.vo.appVo.navigation.NavigationAppVo;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface NavigationService extends IService<Navigation> {
      *
      * @return NavigationVo列表
      */
-    List<NavigationVo> listNavigations();
+    List<NavigationAppVo> listNavigations();
 
     /**
      * 添加商品导航

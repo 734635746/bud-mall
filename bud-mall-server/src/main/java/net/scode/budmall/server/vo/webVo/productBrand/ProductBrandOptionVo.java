@@ -1,4 +1,4 @@
-package net.scode.budmall.server.vo.productBrand;
+package net.scode.budmall.server.vo.webVo.productBrand;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

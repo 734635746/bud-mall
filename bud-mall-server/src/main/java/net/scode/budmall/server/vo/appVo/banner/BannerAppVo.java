@@ -1,4 +1,4 @@
-package net.scode.budmall.server.vo.banner;
+package net.scode.budmall.server.vo.appVo.banner;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2020/4/22 - 22:15
  */
 @Data
-public class BannerVo {
+public class BannerAppVo {
 
 
     /**
@@ -28,4 +28,10 @@ public class BannerVo {
      */
     @ApiModelProperty(value = "横幅信息", dataType = "String")
     private String content;
+
+    /**
+     * 横幅类型 0商品 1外链
+     */
+    @ApiModelProperty(value = "横幅类型", dataType = "int")
+    private int type;
 }

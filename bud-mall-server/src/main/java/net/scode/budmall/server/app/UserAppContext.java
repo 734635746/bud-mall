@@ -1,4 +1,4 @@
-package net.scode.budmall.server.web;
+package net.scode.budmall.server.app;
 
 import lombok.Data;
 

@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.service.BannerService;
-import net.scode.budmall.server.vo.banner.BannerVo;
+import net.scode.budmall.server.vo.appVo.banner.BannerAppVo;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 前台横幅管理接口
+ * 前台横幅调用接口
  *
  * @author liuyoubin
  * @since 2020/4/22 - 21:45
  */
 @Slf4j
-@Api(tags = {"前台横幅管理接口"})
+@Api(tags = {"前台横幅调用接口"})
 @RestController
 @RequestMapping("/api/banner")
 public class BannerController {
@@ -36,7 +36,7 @@ public class BannerController {
             @ApiParam(name = "position", value = "横幅位置,1第一处横幅 2第二处横幅", required = true)
             @RequestParam(value = "position") Integer position) {
 
-        List<BannerVo> list = bannerService.listBannerVoByPosition(position);
+        List<BannerAppVo> list = bannerService.listBannerVoByPosition(position);
 
         return R.data(list);
 

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.dto.banner.OuterChainBannerDto;
 import net.scode.budmall.server.dto.banner.ProductBannerDto;
 import net.scode.budmall.server.po.Banner;
-import net.scode.budmall.server.vo.banner.BannerVo;
+import net.scode.budmall.server.vo.appVo.banner.BannerAppVo;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface BannerService extends IService<Banner> {
      * @param position 位置
      * @return 横幅信息列表
      */
-    List<BannerVo> listBannerVoByPosition(Integer position);
+    List<BannerAppVo> listBannerVoByPosition(Integer position);
 
     /**
      * 获取指定位置的横幅信息列表

@@ -6,7 +6,7 @@ import net.scode.budmall.server.dto.adminUser.AdminUserLoginDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserPwdDto;
 import net.scode.budmall.server.dto.adminUser.AdminUserUpdateDto;
 import net.scode.budmall.server.po.AdminUser;
-import net.scode.budmall.server.vo.adminUser.AdminUserVo;
+import net.scode.budmall.server.vo.webVo.adminUser.AdminUserVo;
 
 import java.util.HashMap;
 

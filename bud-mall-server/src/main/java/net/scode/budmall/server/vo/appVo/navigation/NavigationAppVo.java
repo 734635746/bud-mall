@@ -1,4 +1,4 @@
-package net.scode.budmall.server.vo.navigation;
+package net.scode.budmall.server.vo.appVo.navigation;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2020/4/23 - 20:29
  */
 @Data
-public class NavigationVo {
+public class NavigationAppVo {
 
     /**
      * 导航标题

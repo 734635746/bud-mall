@@ -1,10 +1,10 @@
-package net.scode.budmall.server.vo.productInfo;
+package net.scode.budmall.server.vo.webVo.productInfo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 商品详情列表Vo对象,主要是给前台的商品详情列表进行展示
+ * Web端商品详情列表Vo对象,主要是给前台的商品详情列表进行展示
  *
  * @author liuyoubin
  * @since 2020/4/15 - 22:04

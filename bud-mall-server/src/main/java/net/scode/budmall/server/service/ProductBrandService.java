@@ -2,7 +2,7 @@ package net.scode.budmall.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.scode.budmall.server.po.ProductBrand;
-import net.scode.budmall.server.vo.productBrand.ProductBrandOptionVo;
+import net.scode.budmall.server.vo.webVo.productBrand.ProductBrandOptionVo;
 
 import java.util.List;
 

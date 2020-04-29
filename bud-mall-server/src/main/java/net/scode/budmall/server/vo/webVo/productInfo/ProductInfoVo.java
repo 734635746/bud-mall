@@ -1,4 +1,4 @@
-package net.scode.budmall.server.vo.productInfo;
+package net.scode.budmall.server.vo.webVo.productInfo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 商品详情数据Vo对象,主要是管理页面的编辑商品显示
+ * Web端商品详情数据Vo对象,主要是管理页面的编辑商品显示
  *
  * @author liuyoubin
  * @since 2020/4/12 - 11:54

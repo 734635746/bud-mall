@@ -9,7 +9,7 @@ import net.scode.budmall.server.po.ShoppingCartProduct;
 import net.scode.budmall.server.po.UserInfo;
 import net.scode.budmall.server.service.ShoppingCartProductService;
 import net.scode.budmall.server.service.UserInfoService;
-import net.scode.budmall.server.web.UserAppContext;
+import net.scode.budmall.server.app.UserAppContext;
 import net.scode.commons.exception.ScodeRuntimeException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

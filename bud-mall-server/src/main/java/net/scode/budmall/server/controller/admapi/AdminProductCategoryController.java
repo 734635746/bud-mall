@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.dto.productCategory.ProductCategoryDto;
 import net.scode.budmall.server.dto.productCategory.ProductCategoryUpdateDto;
 import net.scode.budmall.server.service.ProductCategoryService;
-import net.scode.budmall.server.vo.productCategory.ProductCategoryVo;
+import net.scode.budmall.server.vo.webVo.productCategory.ProductCategoryVo;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -55,9 +55,9 @@ public class AdminProductCategoryController {
 
     @ApiOperation(value = "获取所有商品分类列表")
     @GetMapping("/list")
-    public R productInfoList() {
+    public R listProductCategory() {
 
-        List<ProductCategoryVo> list = productCategoryService.listAllProductCategory();
+        List<ProductCategoryVo> list = productCategoryService.listProductCategory();
 
         return R.data(list);
     }

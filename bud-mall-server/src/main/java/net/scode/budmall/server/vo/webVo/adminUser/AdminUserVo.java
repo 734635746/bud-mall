@@ -1,11 +1,11 @@
-package net.scode.budmall.server.vo.adminUser;
+package net.scode.budmall.server.vo.webVo.adminUser;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * 返回给前端的管理员信息Vo对象（主要是排除loginPwd字段）
+ * 返回给Web端的管理员信息Vo对象（主要是排除loginPwd字段）
  *
  * @author liuyoubin
  * @since 2020/4/7 - 21:03

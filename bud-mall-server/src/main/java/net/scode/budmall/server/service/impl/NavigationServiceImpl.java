@@ -8,7 +8,7 @@ import net.scode.budmall.server.dao.NavigationDao;
 import net.scode.budmall.server.dto.navigation.CategoryNavigationDto;
 import net.scode.budmall.server.po.Navigation;
 import net.scode.budmall.server.service.NavigationService;
-import net.scode.budmall.server.vo.navigation.NavigationVo;
+import net.scode.budmall.server.vo.appVo.navigation.NavigationAppVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,20 +28,20 @@ public class NavigationServiceImpl extends ServiceImpl<NavigationDao, Navigation
     private AppConfig appConfig;
 
     @Override
-    public List<NavigationVo> listNavigations() {
+    public List<NavigationAppVo> listNavigations() {
 
         //构造查询参数
         QueryWrapper<Navigation> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("title", "image", "content");
         List<Navigation> list = list(queryWrapper);
 
-        List<NavigationVo> navigationVoList = list.stream().map(navigation -> {
-            NavigationVo navigationVo = new NavigationVo();
-            BeanUtils.copyProperties(navigation, navigationVo);
-            return navigationVo;
+        List<NavigationAppVo> navigationAppVoList = list.stream().map(navigation -> {
+            NavigationAppVo navigationAppVo = new NavigationAppVo();
+            BeanUtils.copyProperties(navigation, navigationAppVo);
+            return navigationAppVo;
         }).collect(Collectors.toList());
 
-        return navigationVoList;
+        return navigationAppVoList;
     }
 
 
