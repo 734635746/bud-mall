@@ -37,4 +37,5 @@ public interface ProductCategoryDao extends BaseMapper<ProductCategory> {
      * @return 商品分类嵌套列表
      */
     List<ProductCategoryAppVo> listAppProductCategoryByParentId(int parentId);
+
 }

@@ -53,6 +53,17 @@ public class AdminProductCategoryController {
         return isSuccess ? R.ok() : R.error("【修改商品分类】操作失败");
     }
 
+    @ApiOperation(value = "删除商品分类")
+    @DeleteMapping("/{categoryId}")
+    public R removeProductCategory(
+            @ApiParam(name = "categoryId", value = "商品分类id", required = true)
+            @PathVariable(value = "categoryId") Integer categoryId) {
+
+        boolean isSuccess = productCategoryService.removeByCategoryId(categoryId);
+
+        return isSuccess ? R.ok() : R.error("【删除商品分类】操作失败");
+    }
+
     @ApiOperation(value = "获取所有商品分类列表")
     @GetMapping("/list")
     public R listProductCategory() {

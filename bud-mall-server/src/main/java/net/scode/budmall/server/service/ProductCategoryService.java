@@ -46,4 +46,11 @@ public interface ProductCategoryService extends IService<ProductCategory> {
      */
     List<ProductCategoryAppVo> listWebProductCategory();
 
+    /**
+     * 删除商品分类
+     *
+     * @param categoryId 商品分类id
+     * @return 是否删除成功
+     */
+    boolean removeByCategoryId(Integer categoryId);
 }

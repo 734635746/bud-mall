@@ -97,4 +97,15 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
         //获取parent_id为0的所有App端商品分类列表
         return baseMapper.listAppProductCategoryByParentId(0);
     }
+
+    @Override
+    public boolean removeByCategoryId(Integer categoryId) {
+
+        UpdateWrapper<ProductCategory> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("data_status", DataStatus.DEL.getValue());
+        updateWrapper.likeRight("category_id", categoryId);
+
+        return update(updateWrapper);
+
+    }
 }

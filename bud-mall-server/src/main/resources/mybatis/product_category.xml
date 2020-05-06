@@ -47,4 +47,5 @@
         <collection property="children" ofType="net.scode.budmall.server.vo.appVo.productCategory.ProductCategoryAppVo"
                     select="listAppProductCategoryByParentId" column="category_id"/>
     </resultMap>
+
 </mapper>
