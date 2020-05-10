@@ -21,13 +21,13 @@ public class ProductCategoryAppVo {
      */
     @ApiModelProperty(value = "分类id", dataType = "int")
     @TableId
-    private int categoryId;
+    private String categoryId;
 
     /**
      * 上级分类ID，一级为0
      */
     @ApiModelProperty(value = "上级分类ID，一级为0", dataType = "int")
-    private int parentId;
+    private String parentId;
 
     /**
      * 分类名称

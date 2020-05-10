@@ -1,6 +1,5 @@
 package net.scode.budmall.server.po;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,16 +16,21 @@ import lombok.Data;
 public class ProductCategory {
 
     /**
+     * 主键id
+     */
+    @ApiModelProperty(value = "自增id", dataType = "int")
+    private int id;
+
+    /**
      * 分类id
      */
-    @ApiModelProperty(value = "分类id", dataType = "int")
-    @TableId
-    private int categoryId;
+    @ApiModelProperty(value = "分类id", dataType = "String")
+    private String categoryId;
     /**
      * 上级分类ID，一级为0
      */
-    @ApiModelProperty(value = "上级分类ID，一级为0", dataType = "int")
-    private int parentId;
+    @ApiModelProperty(value = "上级分类ID，一级为0", dataType = "String")
+    private String parentId;
 
     /**
      * 分类名称

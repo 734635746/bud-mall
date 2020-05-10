@@ -27,8 +27,8 @@ public class ProductInfo {
     /**
      * 分类id
      */
-    @ApiModelProperty(value = "分类id", dataType = "int")
-    private int categoryId;
+    @ApiModelProperty(value = "分类id", dataType = "String")
+    private String categoryId;
 
     /**
      * 品牌id

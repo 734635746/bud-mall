@@ -70,26 +70,42 @@ CREATE TABLE `user_info`
 
 
 /* 商品分类表 */
+# CREATE TABLE `product_category`
+# (
+#     `category_id`   int(10) UNSIGNED NOT NULL COMMENT '分类id',
+#     `parent_id`     int(10)          NOT NULL default 0 COMMENT '上级分类ID，一级为0',
+#     `category_name` varchar(32)      NOT NULL default '' COMMENT '分类名称',
+#     `product_num`   int(10)                   DEFAULT NULL default 0 COMMENT '分类下的商品数量',
+#     `icon`          varchar(50)      NOT NULL default '' COMMENT '分类图标',
+#     `sort`          smallint(4)      NOT NULL default 0 COMMENT '排序权重',
+#     `create_time`   timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `data_status`   tinyint(2)       NOT NULL default 2 COMMENT '通用状态,2正常,3删除',
+#     PRIMARY KEY (`category_id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8 COMMENT ='商品分类';
 CREATE TABLE `product_category`
 (
-    `category_id`   int(10) UNSIGNED NOT NULL COMMENT '分类id',
-    `parent_id`     int(10)          NOT NULL default 0 COMMENT '上级分类ID，一级为0',
-    `category_name` varchar(32)      NOT NULL default '' COMMENT '分类名称',
-    `product_num`   int(10)                   DEFAULT NULL default 0 COMMENT '分类下的商品数量',
-    `icon`          varchar(50)      NOT NULL default '' COMMENT '分类图标',
-    `sort`          smallint(4)      NOT NULL default 0 COMMENT '排序权重',
+    `id`            int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `category_id`   varchar(100)     NOT NULL COMMENT '分类id',
+    `parent_id`     varchar(100)     NOT NULL DEFAULT '0' COMMENT '上级分类ID，一级为0',
+    `category_name` varchar(32)      NOT NULL DEFAULT '' COMMENT '分类名称',
+    `product_num`   int(10)                   DEFAULT '0' COMMENT '分类下的商品数量',
+    `icon`          varchar(50)      NOT NULL DEFAULT '' COMMENT '分类图标',
+    `sort`          smallint(4)      NOT NULL DEFAULT '0' COMMENT '排序权重',
     `create_time`   timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `data_status`   tinyint(2)       NOT NULL default 2 COMMENT '通用状态,2正常,3删除',
-    PRIMARY KEY (`category_id`)
+    `data_status`   tinyint(2)       NOT NULL DEFAULT '2' COMMENT '通用状态,2正常,3删除',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `unq_idx_category_id` (`category_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='商品分类';
+
 
 /* 商品品牌表 */
 CREATE TABLE `product_brand`
 (
     `id`           int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `brand_name`   varchar(32)      NOT NULL default '' COMMENT '品牌名称',
-    `category_id`  int(10)          NOT NULL default 0 COMMENT '分类ID',
+    `category_id`  varchar(100)     NOT NULL default '0' COMMENT '分类ID',
     `first_letter` char(1)                   DEFAULT '' COMMENT '首字母',
     `brand_logo`   varchar(128)              DEFAULT '' COMMENT '品牌logo',
     `brand_img`    varchar(128)              DEFAULT '' COMMENT '专区大图',
@@ -129,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `product_service`
 CREATE TABLE `product_info`
 (
     `id`           int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    `category_id`  int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品分类id',
+    `category_id`  varchar(100)     NOT NULL default '0' COMMENT '分类ID',
     `brand_id`     int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品品牌id',
     `shop_id`      int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '店铺id',
     `product_name` varchar(500)     NOT NULL COMMENT '商品名称',

@@ -7,8 +7,8 @@ import lombok.Data;
 
 /**
  * 表[product_brand]对应实体类
- * 
- * @author liuyoubin 2020年04月06日 
+ *
+ * @author liuyoubin 2020年04月06日
  */
 @Data
 @TableName(value = "product_brand")
@@ -30,8 +30,8 @@ public class ProductBrand {
     /**
      * 分类ID
      */
-    @ApiModelProperty(value = "分类ID", dataType = "int")
-    private int categoryId;
+    @ApiModelProperty(value = "分类ID", dataType = "String")
+    private String categoryId;
 
     /**
      * 首字母

@@ -20,7 +20,7 @@ public interface ProductCategoryDao extends BaseMapper<ProductCategory> {
      * @param parentId 父级分类Id
      * @return ProductCategory
      */
-    ProductCategory selectMaxIdCategoryByParentId(int parentId);
+    ProductCategory selectMaxIdCategoryByParentId(String parentId);
 
     /**
      * 获取指定parent_id的商品分类列表
@@ -28,7 +28,7 @@ public interface ProductCategoryDao extends BaseMapper<ProductCategory> {
      * @param parentId 父级分类Id
      * @return 商品分类嵌套列表
      */
-    List<ProductCategoryVo> listProductCategoryByParentId(int parentId);
+    List<ProductCategoryVo> listProductCategoryByParentId(String parentId);
 
     /**
      * 获取指定parent_id的App端商品分类列表
@@ -36,6 +36,6 @@ public interface ProductCategoryDao extends BaseMapper<ProductCategory> {
      * @param parentId 父级分类Id
      * @return 商品分类嵌套列表
      */
-    List<ProductCategoryAppVo> listAppProductCategoryByParentId(int parentId);
+    List<ProductCategoryAppVo> listAppProductCategoryByParentId(String parentId);
 
 }

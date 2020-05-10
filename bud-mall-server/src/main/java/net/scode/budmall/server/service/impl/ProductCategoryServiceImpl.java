@@ -51,12 +51,18 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
         ProductCategory maxIdCategory = baseMapper.selectMaxIdCategoryByParentId(productCategory.getParentId());
         //存在最大的子分类id
         if (maxIdCategory != null) {
-            productCategory.setCategoryId(maxIdCategory.getCategoryId() + 1);
+            String categoryId = maxIdCategory.getCategoryId();
+            String newCategoryId = String.valueOf(Long.valueOf(categoryId) + 1);
+            productCategory.setCategoryId(newCategoryId);
+            //productCategory.setCategoryId(maxIdCategory.getCategoryId() + 1);
         } else {//不存在最大的子分类id
-            if (productCategory.getParentId() == 0) {//一级分类
-                productCategory.setCategoryId(1000);
+            if (productCategory.getParentId().equals("0")) {//一级分类
+                productCategory.setCategoryId("1000");
             } else {
-                productCategory.setCategoryId(productCategory.getParentId() * 1000);
+                String parentId = productCategory.getParentId();
+                String newCategoryId = String.valueOf(Long.valueOf(parentId) * 1000);
+                productCategory.setCategoryId(newCategoryId);
+                //productCategory.setCategoryId(productCategory.getParentId() * 1000);
             }
         }
 
@@ -88,14 +94,14 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryDao, 
     public List<ProductCategoryVo> listProductCategory() {
 
         //获取parent_id为0的所有商品分类列表
-        return baseMapper.listProductCategoryByParentId(0);
+        return baseMapper.listProductCategoryByParentId("0");
 
     }
 
     @Override
     public List<ProductCategoryAppVo> listWebProductCategory() {
         //获取parent_id为0的所有App端商品分类列表
-        return baseMapper.listAppProductCategoryByParentId(0);
+        return baseMapper.listAppProductCategoryByParentId("0");
     }
 
     @Override

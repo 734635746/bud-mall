@@ -3,7 +3,7 @@
 
 <mapper namespace="net.scode.budmall.server.dao.ProductCategoryDao">
 
-    <select id="selectMaxIdCategoryByParentId" parameterType="int"
+    <select id="selectMaxIdCategoryByParentId" parameterType="String"
             resultType="net.scode.budmall.server.po.ProductCategory">
         SELECT parent_id, category_id
         FROM product_category
@@ -12,8 +12,9 @@
         LIMIT 0,1
     </select>
 
-    <select id="listProductCategoryByParentId" parameterType="int" resultMap="nestedCategory">
-        SELECT category_id,
+    <select id="listProductCategoryByParentId" parameterType="String" resultMap="nestedCategory">
+        SELECT id,
+               category_id,
                parent_id,
                category_name,
                product_num,
@@ -31,7 +32,7 @@
                     select="listProductCategoryByParentId" column="category_id"/>
     </resultMap>
 
-    <select id="listAppProductCategoryByParentId" parameterType="int" resultMap="nestedAppCategory">
+    <select id="listAppProductCategoryByParentId" parameterType="String" resultMap="nestedAppCategory">
         SELECT category_id,
                parent_id,
                category_name,

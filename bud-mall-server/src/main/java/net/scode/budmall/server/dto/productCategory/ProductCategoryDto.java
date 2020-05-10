@@ -18,8 +18,9 @@ public class ProductCategoryDto {
     /**
      * 上级分类ID，一级为0
      */
-    @ApiModelProperty(value = "上级分类ID，一级为0", dataType = "int", required = true)
-    private int parentId;
+    @ApiModelProperty(value = "上级分类ID，一级为0", dataType = "String", required = true)
+    @NotBlank(message = "parentId不能为空")
+    private String parentId;
 
     /**
      * 分类名称

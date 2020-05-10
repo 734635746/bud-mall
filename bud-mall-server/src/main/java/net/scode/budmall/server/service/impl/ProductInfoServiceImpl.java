@@ -181,13 +181,19 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
         //构造查询参数对象
         QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("sort");
-        queryWrapper.ne("data_status", DataStatus.DEL);
+        queryWrapper.ne("data_status", DataStatus.DEL.getValue());
         queryWrapper.select("id", "product_name", "product_img", "price");
         List<ProductInfo> productInfos = list(queryWrapper);
 
         return productInfos.stream().map(productInfo -> {
             ProductListAppVo productListAppVo = new ProductListAppVo();
             BeanUtils.copyProperties(productInfo, productListAppVo);
+
+            //商品图片处理，客户端商品列表只需要一张图片
+            String[] imgArray = productListAppVo.getProductImg().split(",");
+            if (imgArray.length != 0) {
+                productListAppVo.setProductImg(imgArray[0]);
+            }
             return productListAppVo;
         }).collect(Collectors.toList());
     }

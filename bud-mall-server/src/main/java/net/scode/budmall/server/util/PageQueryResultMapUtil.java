@@ -91,11 +91,11 @@ public class PageQueryResultMapUtil {
         //转换后的商品数据集合
         ArrayList<ProductInfoListVo> productInfoListVos = new ArrayList<>();
         //商品数据集合分类Id列表
-        List<Integer> categoryIdList = new ArrayList<>();
+        List<String> categoryIdList = new ArrayList<>();
         //商品数据集合分类Id列表
         List<Integer> brandIdList = new ArrayList<>();
         //商品分类集合 商品Id-->商品所属分类名字
-        Map<Integer, String> categoryMap = new HashMap<>();
+        Map<String, String> categoryMap = new HashMap<>();
         //商品品牌集合 商品Id-->商品所属品牌名字
         Map<Integer, String> brandMap = new HashMap<>();
 
@@ -112,7 +112,6 @@ public class PageQueryResultMapUtil {
         //查询
         List<ProductCategory> categoryList = productCategoryService.list(categoryQueryWrapper);
         for (ProductCategory category : categoryList) {
-            System.out.println(category.getCategoryName());
             categoryMap.put(category.getCategoryId(), category.getCategoryName());
         }
 
