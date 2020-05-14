@@ -36,6 +36,12 @@ public class ProductSku {
     private String skuName;
 
     /**
+     * SKU属性
+     */
+    @ApiModelProperty(value = "SKU属性", dataType = "String")
+    private String attrValueItems;
+
+    /**
      * 价格
      */
     @ApiModelProperty(value = "价格", dataType = "BigDecimal")

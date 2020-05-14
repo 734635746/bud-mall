@@ -91,11 +91,11 @@ public class PageQueryResultMapUtil {
         //转换后的商品数据集合
         ArrayList<ProductInfoListVo> productInfoListVos = new ArrayList<>();
         //商品数据集合分类Id列表
-        List<String> categoryIdList = new ArrayList<>();
+        List<Integer> categoryIdList = new ArrayList<>();
         //商品数据集合分类Id列表
         List<Integer> brandIdList = new ArrayList<>();
-        //商品分类集合 商品Id-->商品所属分类名字
-        Map<String, String> categoryMap = new HashMap<>();
+        //商品分类集合 分类Id-->商品所属分类名字
+        Map<Integer, String> categoryMap = new HashMap<>();
         //商品品牌集合 商品Id-->商品所属品牌名字
         Map<Integer, String> brandMap = new HashMap<>();
 
@@ -107,12 +107,12 @@ public class PageQueryResultMapUtil {
 
         //查询商品数据的分类名字并保存到Map中
         QueryWrapper<ProductCategory> categoryQueryWrapper = new QueryWrapper<>();
-        categoryQueryWrapper.select("category_id", "category_name");
-        categoryQueryWrapper.in("category_id", categoryIdList);
+        categoryQueryWrapper.select("id", "category_name");
+        categoryQueryWrapper.in("id", categoryIdList);
         //查询
         List<ProductCategory> categoryList = productCategoryService.list(categoryQueryWrapper);
         for (ProductCategory category : categoryList) {
-            categoryMap.put(category.getCategoryId(), category.getCategoryName());
+            categoryMap.put(category.getId(), category.getCategoryName());
         }
 
         //查询商品数据的品牌名字并保存到Map中

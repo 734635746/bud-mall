@@ -17,6 +17,12 @@ import java.util.List;
 public class ProductCategoryAppVo {
 
     /**
+     * id
+     */
+    @ApiModelProperty(value = "自增id", dataType = "int")
+    private int id;
+
+    /**
      * 分类id
      */
     @ApiModelProperty(value = "分类id", dataType = "int")

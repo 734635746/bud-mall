@@ -30,8 +30,8 @@ public class ProductBrand {
     /**
      * 分类ID
      */
-    @ApiModelProperty(value = "分类ID", dataType = "String")
-    private String categoryId;
+    @ApiModelProperty(value = "分类ID", dataType = "int")
+    private int categoryId;
 
     /**
      * 首字母

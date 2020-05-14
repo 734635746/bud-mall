@@ -167,17 +167,44 @@ CREATE TABLE `product_info`
 /**商品sku表**/
 CREATE TABLE IF NOT EXISTS `product_sku`
 (
-    `id`           int(11)        NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    `product_id`   int(11)        NOT NULL DEFAULT 0 COMMENT '商品编号',
-    `sku_name`     varchar(500)   NOT NULL DEFAULT '' COMMENT 'SKU名称',
-    `price`        decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '价格',
-    `origin_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '原价',
-    `stock`        int(11)        NOT NULL DEFAULT 0 COMMENT '库存',
-    `picture`      varchar(255)   NOT NULL DEFAULT '0' COMMENT '如果是第一个sku编码, 可以加图片',
+    `id`               int(11)        NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `product_id`       int(11)        NOT NULL DEFAULT 0 COMMENT '商品编号',
+    `sku_name`         varchar(500)   NOT NULL DEFAULT '' COMMENT 'SKU名称',
+    `attr_value_items` varchar(255)   NOT NULL DEFAULT '' COMMENT '属性和属性值 id串 attribute + attribute value 表ID冒号分隔',
+    `price`            decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '价格',
+    `origin_price`     decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '原价',
+    `stock`            int(11)        NOT NULL DEFAULT 0 COMMENT '库存',
+    `picture`          varchar(255)   NOT NULL DEFAULT '0' COMMENT '如果是第一个sku编码, 可以加图片',
     PRIMARY KEY (`id`),
     KEY `idx_product_id` (`product_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='商品sku表';
+
+/**商品sku属性表**/
+CREATE TABLE IF NOT EXISTS `product_spec`
+(
+    `id`         int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+    `spec_name`  varchar(255)     NOT NULL DEFAULT '' COMMENT '规格名称',
+    `is_visible` tinyint(4)       NOT NULL DEFAULT 0 COMMENT '是否可视',
+    `sort`       int(11)          NOT NULL DEFAULT 0 COMMENT '排序',
+    PRIMARY KEY (`id`),
+    KEY `sort` (`sort`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='商品sku属性表';
+
+/**商品sku属性值表**/
+CREATE TABLE IF NOT EXISTS `product_spec_value`
+(
+    `id`              int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+    `spec_id`         int(11) UNSIGNED NOT NULL COMMENT '商品规格ID',
+    `spec_value_name` varchar(255)     NOT NULL DEFAULT '' COMMENT '商品规格值名称',
+    `is_visible`      tinyint(4)       NOT NULL DEFAULT 0 COMMENT '是否可视',
+    `sort`            int(11)          NOT NULL DEFAULT 0 COMMENT '排序',
+    PRIMARY KEY (`id`),
+    KEY `spec_id` (`spec_id`),
+    KEY `sort` (`sort`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='商品sku属性值表';
 
 /**我的订单表**/
 CREATE TABLE IF NOT EXISTS `order`

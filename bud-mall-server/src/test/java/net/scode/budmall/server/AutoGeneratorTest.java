@@ -52,6 +52,8 @@ public class AutoGeneratorTest {
         //auto.generate(config, "shopping_cart", "ShoppingCart");
         //auto.generate(config, "banner", "Banner");
         //auto.generate(config, "navigation", "Navigation");
+        //auto.generate(config, "product_spec", "ProductSpec");
+        //auto.generate(config, "product_spec_value", "ProductSpecValue");
     }
 
 

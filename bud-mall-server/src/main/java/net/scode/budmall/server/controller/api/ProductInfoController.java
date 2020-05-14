@@ -37,4 +37,5 @@ public class ProductInfoController {
         return R.data(list);
     }
 
+
 }
