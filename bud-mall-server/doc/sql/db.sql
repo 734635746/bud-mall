@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `product_spec`
 (
     `id`         int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `spec_name`  varchar(255)     NOT NULL DEFAULT '' COMMENT '规格名称',
-    `is_visible` tinyint(4)       NOT NULL DEFAULT 0 COMMENT '是否可视',
+    `is_visible` tinyint(4)       NOT NULL DEFAULT 1 COMMENT '是否可视',
     `sort`       int(11)          NOT NULL DEFAULT 0 COMMENT '排序',
     PRIMARY KEY (`id`),
     KEY `sort` (`sort`)
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `product_spec_value`
     `id`              int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `spec_id`         int(11) UNSIGNED NOT NULL COMMENT '商品规格ID',
     `spec_value_name` varchar(255)     NOT NULL DEFAULT '' COMMENT '商品规格值名称',
-    `is_visible`      tinyint(4)       NOT NULL DEFAULT 0 COMMENT '是否可视',
+    `is_visible`      tinyint(4)       NOT NULL DEFAULT 1 COMMENT '是否可视',
     `sort`            int(11)          NOT NULL DEFAULT 0 COMMENT '排序',
     PRIMARY KEY (`id`),
     KEY `spec_id` (`spec_id`),
