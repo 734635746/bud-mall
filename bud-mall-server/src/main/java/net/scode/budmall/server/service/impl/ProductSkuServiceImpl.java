@@ -2,10 +2,8 @@ package net.scode.budmall.server.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.scode.budmall.server.dao.ProductSkuDao;
-import net.scode.budmall.server.dto.productSku.ProductSkuDto;
 import net.scode.budmall.server.po.ProductSku;
 import net.scode.budmall.server.service.ProductSkuService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +20,7 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuDao, ProductSku
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveSkuList(int productId, List<ProductSkuDto> skuList) {
+    public void saveSkuList(int productId, List<ProductSku> skuList) {
 
         int size = skuList.size();
 
@@ -30,13 +28,10 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuDao, ProductSku
             //保存商品sku对象
             ArrayList<ProductSku> productSkuList = new ArrayList<>();
 
-            for (ProductSkuDto productSkuDto : skuList) {
+            for (ProductSku productSku : skuList) {
 
-                ProductSku productSku = new ProductSku();
-                BeanUtils.copyProperties(productSkuDto, productSku);
                 //设置商品id
                 productSku.setProductId(productId);
-
                 productSkuList.add(productSku);
             }
             //保存到数据库

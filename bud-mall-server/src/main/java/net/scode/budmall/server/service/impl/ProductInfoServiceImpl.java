@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.scode.budmall.server.consts.ProductConsts;
 import net.scode.budmall.server.dao.ProductInfoDao;
 import net.scode.budmall.server.dto.productInfo.ProductInfoDto;
-import net.scode.budmall.server.dto.productSku.ProductSkuDto;
 import net.scode.budmall.server.po.ProductInfo;
 import net.scode.budmall.server.po.ProductSku;
 import net.scode.budmall.server.query.ProductInfoQuery;
@@ -24,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -94,34 +92,28 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoDao, ProductI
         //修改商品详情信息
         updateById(productInfo);
 
-        //处理SKU信息
-        //查询商品下所有之前SKU的id
-        QueryWrapper<ProductSku> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("product_id", id);
-        queryWrapper.select("id");
-        List<ProductSku> list = productSkuService.list(queryWrapper);
-        //存放原先SKU的id
-        List<Integer> oldSkuListId = new ArrayList<>();
-        list.forEach(arg -> {
-            oldSkuListId.add(arg.getId());
-        });
-        //遍历获取前端传过来的SKU信息
-        List<ProductSkuDto> skuList = productInfoDto.getSkuList();
-        for (ProductSkuDto productSkuDto : skuList) {
-            ProductSku productSku = new ProductSku();
-            BeanUtils.copyProperties(productSkuDto, productSku);
-            if (productSku.getId() != 0) {//旧的的SKU
-                productSkuService.updateById(productSku);
-                //移除SKU的id代表不需要删除
-                oldSkuListId.remove(new Integer(productSku.getId()));
-            } else {
-                productSku.setProductId(id);
-                productSkuService.save(productSku);
+        //处理SKU列表信息
+        List<ProductSku> skuList = productInfoDto.getSkuList();
+        if (skuList.size() == 0) {//没有sku数据
+            //没有sku数据,需要删除掉原来的sku数据
+            UpdateWrapper<ProductSku> skuWrapper = new UpdateWrapper<>();
+            skuWrapper.eq("product_id", id);
+            productSkuService.remove(skuWrapper);
+        } else {
+            if (skuList.get(0).getId() != 0) {//sku信息的id不为零，则用户仅仅是修改并没有重新选择规格
+                productSkuService.updateBatchById(skuList);
+            } else {//用户重新选定了规格
+                //重新选定了规格,需要删除掉原来的sku数据
+                UpdateWrapper<ProductSku> skuWrapper = new UpdateWrapper<>();
+                skuWrapper.eq("product_id", id);
+                productSkuService.remove(skuWrapper);
+                //插入新的数据
+                List<ProductSku> newSkuList = skuList.stream().map(sku -> {
+                    sku.setProductId(id);
+                    return sku;
+                }).collect(Collectors.toList());
+                productSkuService.saveBatch(newSkuList);
             }
-        }
-        //剩下的SKU id代表需要删除的
-        for (Integer oId : oldSkuListId) {
-            productSkuService.removeById(oId);
         }
 
         return true;

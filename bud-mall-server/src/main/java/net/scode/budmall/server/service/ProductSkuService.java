@@ -1,7 +1,6 @@
 package net.scode.budmall.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.scode.budmall.server.dto.productSku.ProductSkuDto;
 import net.scode.budmall.server.po.ProductSku;
 
 import java.util.List;
@@ -19,5 +18,5 @@ public interface ProductSkuService extends IService<ProductSku> {
      * @param id      对应的商品id
      * @param skuList sku数据列表
      */
-    void saveSkuList(int id, List<ProductSkuDto> skuList);
+    void saveSkuList(int id, List<ProductSku> skuList);
 }

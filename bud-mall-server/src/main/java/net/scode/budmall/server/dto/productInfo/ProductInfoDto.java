@@ -2,7 +2,7 @@ package net.scode.budmall.server.dto.productInfo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import net.scode.budmall.server.dto.productSku.ProductSkuDto;
+import net.scode.budmall.server.po.ProductSku;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -95,6 +95,6 @@ public class ProductInfoDto {
      * 商品Sku列表
      */
     @ApiModelProperty(value = "商品Sku列表", dataType = "String", required = true)
-    private List<ProductSkuDto> skuList = new ArrayList<>();
+    private List<ProductSku> skuList = new ArrayList<>();
 
 }

@@ -56,4 +56,10 @@ public class ProductSkuDto {
     @ApiModelProperty(value = "图片", dataType = "String")
     private String picture;
 
+    /**
+     * SKU属性
+     */
+    @ApiModelProperty(value = "SKU属性", dataType = "String")
+    private String attrValueItems;
+
 }
