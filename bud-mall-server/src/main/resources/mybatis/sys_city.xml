@@ -3,4 +3,20 @@
 
 <mapper namespace="net.scode.budmall.server.dao.SysCityDao">
 
+    <select id="listSysCityVoByParentId" parameterType="int" resultMap="nestSysCityVo">
+        SELECT id,
+               parent_id,
+               name
+        FROM sys_city
+        WHERE parent_id = #{parentId}
+          AND data_status = 2
+        ORDER BY sort DESC
+    </select>
+
+    <resultMap id="nestSysCityVo" type="net.scode.budmall.server.vo.appVo.sysCity.SysCityVo">
+        <id column="id" property="id"/>
+        <collection property="children" ofType="net.scode.budmall.server.vo.appVo.sysCity.SysCityVo"
+                    select="listSysCityVoByParentId" column="id"/>
+    </resultMap>
+
 </mapper>

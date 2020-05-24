@@ -69,20 +69,6 @@ CREATE TABLE `user_info`
   DEFAULT CHARSET = utf8 COMMENT ='用户信息';
 
 
-/* 商品分类表 */
-# CREATE TABLE `product_category`
-# (
-#     `category_id`   int(10) UNSIGNED NOT NULL COMMENT '分类id',
-#     `parent_id`     int(10)          NOT NULL default 0 COMMENT '上级分类ID，一级为0',
-#     `category_name` varchar(32)      NOT NULL default '' COMMENT '分类名称',
-#     `product_num`   int(10)                   DEFAULT NULL default 0 COMMENT '分类下的商品数量',
-#     `icon`          varchar(50)      NOT NULL default '' COMMENT '分类图标',
-#     `sort`          smallint(4)      NOT NULL default 0 COMMENT '排序权重',
-#     `create_time`   timestamp        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-#     `data_status`   tinyint(2)       NOT NULL default 2 COMMENT '通用状态,2正常,3删除',
-#     PRIMARY KEY (`category_id`)
-# ) ENGINE = InnoDB
-#   DEFAULT CHARSET = utf8 COMMENT ='商品分类';
 CREATE TABLE `product_category`
 (
     `id`            int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
@@ -275,6 +261,9 @@ CREATE TABLE IF NOT EXISTS `delivery_address`
     `user_id`          INT(11)     NOT NULL DEFAULT 0 COMMENT '用户id',
     `contacts_name`    VARCHAR(20) NOT NULL DEFAULT '' COMMENT '收件人姓名',
     `contact_phone`    VARCHAR(11) NOT NULL DEFAULT '' COMMENT '收件人手机号',
+    `province_id`      INT(10)     NOT NULL DEFAULT 0 COMMENT '省份/地区Id',
+    `city_id`          INT(10)     NOT NULL DEFAULT 0 COMMENT '城市Id',
+    `district_id`      INT(10)     NOT NULL DEFAULT 0 COMMENT '区/县Id',
     `province`         VARCHAR(30) NOT NULL DEFAULT '' COMMENT '省份/地区',
     `city`             VARCHAR(30) NOT NULL DEFAULT '' COMMENT '城市',
     `district`         VARCHAR(30) NOT NULL DEFAULT '' COMMENT '区/县',

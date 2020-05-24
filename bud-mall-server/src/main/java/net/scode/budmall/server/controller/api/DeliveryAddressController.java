@@ -8,12 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import net.scode.budmall.server.dto.deliveryAddress.DeliveryAddressDto;
 import net.scode.budmall.server.po.DeliveryAddress;
 import net.scode.budmall.server.service.DeliveryAddressService;
+import net.scode.budmall.server.vo.appVo.deliveryAddress.DeliveryAddressVo;
 import net.scode.commons.core.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 前台收货地址调用接口
@@ -83,5 +85,25 @@ public class DeliveryAddressController {
         boolean isSuccess = deliveryAddressService.update(updateWrapper);
 
         return isSuccess ? R.ok() : R.error("【修改收货地址的顺序】操作失败");
+    }
+
+    @ApiOperation(value = "获取用户的收货地址列表")
+    @GetMapping("/list")
+    public R listDeliveryAddress() {
+
+        List<DeliveryAddress> list = deliveryAddressService.listDeliveryAddress();
+
+        return R.data(list);
+    }
+
+    @ApiOperation(value = "获取指定id的收货地址")
+    @GetMapping("/{id}")
+    public R getDeliveryAddressById(
+            @ApiParam(name = "id", value = "收货地址id", required = true)
+            @PathVariable(value = "id") Integer id) {
+
+        DeliveryAddressVo addressVo = deliveryAddressService.getDeliveryAddressById(id);
+
+        return R.data(addressVo);
     }
 }

@@ -40,6 +40,24 @@ public class DeliveryAddress {
     private String contactPhone;
 
     /**
+     * 省份/地区(id)
+     */
+    @ApiModelProperty(value = "省份/地区", dataType = "String", required = true)
+    private int provinceId;
+
+    /**
+     * 城市(id)
+     */
+    @ApiModelProperty(value = "城市", dataType = "String", required = true)
+    private int cityId;
+
+    /**
+     * 区/县(id)
+     */
+    @ApiModelProperty(value = "区/县", dataType = "String", required = true)
+    private int districtId;
+
+    /**
      * 省份/地区
      */
     @ApiModelProperty(value = "省份/地区", dataType = "String")

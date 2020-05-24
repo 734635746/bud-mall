@@ -10,6 +10,8 @@ import net.scode.budmall.server.po.DeliveryAddress;
 import net.scode.budmall.server.po.SysCity;
 import net.scode.budmall.server.service.DeliveryAddressService;
 import net.scode.budmall.server.service.SysCityService;
+import net.scode.budmall.server.vo.appVo.deliveryAddress.DeliveryAddressVo;
+import net.scode.commons.exception.ScodeRuntimeException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,5 +91,29 @@ public class DeliveryAddressServiceImpl extends ServiceImpl<DeliveryAddressDao, 
             return updateById(deliveryAddress);
         }
 
+    }
+
+    @Override
+    public List<DeliveryAddress> listDeliveryAddress() {
+
+        //获取用户id
+        int userId = UserAppContext.getUserId();
+        //查询收获地址列表
+        UpdateWrapper<DeliveryAddress> wrapper = new UpdateWrapper<>();
+        wrapper.eq("user_id", userId);
+        wrapper.orderByDesc("is_default", "sort");
+
+        return baseMapper.selectList(wrapper);
+    }
+
+    @Override
+    public DeliveryAddressVo getDeliveryAddressById(Integer id) {
+        DeliveryAddress deliveryAddress = baseMapper.selectById(id);
+        if (deliveryAddress == null) {
+            throw new ScodeRuntimeException("收货地址不存在");
+        }
+        DeliveryAddressVo addressVo = new DeliveryAddressVo();
+        BeanUtils.copyProperties(deliveryAddress, addressVo);
+        return addressVo;
     }
 }
